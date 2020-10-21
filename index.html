@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR Based Web App</title>
+    <script defer src="./lib/jquery.min.js"></script>
+  </head>
+  
+  <body onload="checkQrCode()">
+    <script>
+      function checkQrCode() {
+        var params = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            params.push(hash[0]);
+            params[hash[0]] = hash[1];
+        }
+        $.get('http://54.177.108.151/api/v1/qr', {qrcode: vars.qrcode}, (data, status) => {
+          if (data.status === 200) {
+            alert("Successfully run!!");
+          } else if (data.status === 403) {
+            window.location.replace('./valid.html')
+          } else if (data.status === 404) {
+            window.location.replace('./invalid.html')
+          }
+        });
+      }
+    </script>
+  </body>
+  
+</html>
