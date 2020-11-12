@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>AR Based Web App</title>
-    <script defer src="./lib/jquery.min.js"></script>
-  </head>
-  
-  <body onload="checkQrCode()">
-    <script>
-      function checkQrCode() {
+function checkQrCode() {
         var params = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
         for(var i = 0; i < hashes.length; i++)
@@ -28,7 +19,3 @@
           }
         });
       }
-    </script>
-  </body>
-  
-</html>

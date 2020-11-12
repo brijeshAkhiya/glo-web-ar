@@ -1,0 +1,27 @@
+{
+  "name": "glo-ar-based-web-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/mean_stack_yudiz/glo-ar-based-web-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/mean_stack_yudiz/glo-ar-based-web-app/issues"
+  },
+  "homepage": "https://gitlab.com/mean_stack_yudiz/glo-ar-based-web-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}
