@@ -18,7 +18,7 @@
         }
         console.log('hash', hashes);
         console.log('params', params);
-        $.get('http://54.177.108.151/api/v1/qr', {qrcode: hash}, (data, status) => {
+        $.get('http://54.177.108.151/api/v1/qr', {qrcode: hash || 'NmqYvTA7ytTE20FHSUlOOGfpwTdIlD3oj0IuUI0lnr'}, (data, status) => {
           if (data.status === 200) {
             alert("Successfully run!!");
           } else if (data.status === 403) {
