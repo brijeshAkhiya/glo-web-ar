@@ -12,15 +12,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <!-- <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script> -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+    <!-- <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script> -->
   </head>
 
   <body style='margin : 0px; overflow: hidden;'>
-    <model-viewer src="./archive/model_Coke_20171226_153241217.gltf" ios-src="./archive/model_Coke_20171226_153241217.usdz" magic-leap ar camera-controls></model-viewer>
+    <model-viewer src="./archive/model_Coke_20171226_153241217.gltf" auto-rotate ar camera-controls ios-src="./archive/model_Coke_20171226_153241217.usdz"></model-viewer>
     <!-- <script>
       navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream) {
