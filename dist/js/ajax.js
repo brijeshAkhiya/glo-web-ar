@@ -19,6 +19,6 @@ function checkQrCode() {
     }
     
   };
-  xhttp.open("GET", "http://54.177.108.151/api/v1/qr?qrcode=" + hash || 'NmqYvTA7ytTE20FHSUlOOGfpwTdIlD3oj0IuUI0lnr', true);
+  xhttp.open("GET", "http://verify.qrcodesafe.com/api/v1/qr?qrcode=" + hash || 'NmqYvTA7ytTE20FHSUlOOGfpwTdIlD3oj0IuUI0lnr', true);
   xhttp.send();
 }
