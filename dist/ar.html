@@ -12,46 +12,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script> -->
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+    <!-- <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script> -->
     <!-- <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script> -->
   </head>
 
   <body style='margin : 0px; overflow: hidden;'>
-    <model-viewer src="./archive/model_Coke_20171226_153241217.gltf" auto-rotate ar camera-controls ios-src="./archive/model_Coke_20171226_153241217.usdz"></model-viewer>
-    <!-- <script>
-      navigator.mediaDevices.getUserMedia(constraints)
-        .then(function(stream) {
-          var videoTracks = stream.getVideoTracks();
-          console.log('Got stream with constraints:', constraints);
-          console.log('Using video device: ' + videoTracks[0].label);
-          stream.onended = function() {
-            console.log('Stream ended');
-          };
-          window.stream = stream; // make variable available to console
-          video.srcObject = stream;
-        }).catch(function(error) {
-          console.log(error)
-        });
-      
-          </script> -->
-    <!-- <model-viewer alt="A 3D model of an astronaut." src="./bulb/Bulb_Verified_Options.FBX" ios-src="Astronaut.usdz" magic-leap ar>
+  
 
-    <a-scene embedded arjs='sourceType: webcam;'>
-
-      <a-marker preset='hiro'> -->
-        <!--Adding a glTF 2.0 model to your scene-->
-    <!-- <a-entity gltf-model-next="src: url('./AnyConv.com__Bulb_Verified_Options.gltf');">
-    </a-entity>
-    <a-entity fbx-model=”src: url(./bulb/Bulb_Verified_Options.FBX);”>
-        </a-entity>
-
-    </a-marker>
-
-    <a-entity camera></a-entity>
-    </a-scene> -->
+    <a-scene embedded arjs renderer="precision: mediump">
+      <!-- Declaring chart component -->
+      <a-box position='0 0 -4' material='color: green;'></a-box>
+      <!-- Aframe camera -->
+      <a-entity camera look-controls pointerLockEnabled>
+          <a-cursor></a-cursor>
+      </a-entity>
+  </a-scene>
 
   </body>
 

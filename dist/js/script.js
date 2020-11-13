@@ -47,8 +47,8 @@ let video;
 function init(result) {
 	scene = new THREE.Scene();
 	CameraControls.install({ THREE: THREE });
-	// container = document.getElementsByClassName('parent')[0];
-	// video = document.getElementById('video');
+	container = document.getElementById('bulb');
+	video = document.getElementById('video');
 	camera = new THREE.PerspectiveCamera(54, window.innerWidth / window.innerHeight, 0.3, 1000);
 	camera.position.set(0, 0, 70);
 	renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -56,9 +56,9 @@ function init(result) {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.shadowMap.enabled = true;
 	renderer.setClearAlpha(0.0);
-	// container.appendChild(renderer.domElement);
+	container.appendChild(renderer.domElement);
 
-	document.body.appendChild(renderer.domElement);
+	// document.body.appendChild(renderer.domElement);
 
 
 	cameraControls = new CameraControls(camera, renderer.domElement);
@@ -123,26 +123,26 @@ function init(result) {
 
 	window.addEventListener('resize', onWindowResize, false);
 
-	// if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-	// 	var constraints = { video: { width: 1278, height: 720, facingMode: 'user' } };
+	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		var constraints = { video: { width: 1278, height: 720, facingMode: 'user' } };
 
-	// 	navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+		navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
 
-	// 		// apply the stream to the video element used in the texture
+			// apply the stream to the video element used in the texture
 
-	// 		video.srcObject = stream;
-	// 		video.play();
+			video.srcObject = stream;
+			video.play();
 
-	// 	}).catch(function (error) {
+		}).catch(function (error) {
 
-	// 		console.error('Unable to access the camera/webcam.', error);
+			console.error('Unable to access the camera/webcam.', error);
 
-	// 	});
+		});
 
-	// } else {
+	} else {
 
-	// 	console.error('MediaDevices interface not available.');
-	// }
+		console.error('MediaDevices interface not available.');
+	}
 
 
 }
