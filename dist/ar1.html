@@ -19,15 +19,17 @@
     </script>
   </head>
 
-  <body style='margin: 0; overflow: hidden;'>
+  <body onload="start(1)" style='margin: 0; overflow: hidden;'>
     <a-scene
     vr-mode-ui="enabled: false"
     embedded
     arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
   >
-
       <a-camera gps-camera rotation-reader></a-camera>
-      <a-entity position='0 1.43 -3' gltf-model="./archive/model_Coke_20171226_153241217.gltf" scale="0.01 0.01 0.01" gps-entity-place="latitude: 51.507351; longitude:-0.127758;"/> 
+      <div class="parent">
+        <video onchange="console.log(event)" id="video"></video>
+        <div id="bulb"></div>
+      </div>
     </a-scene>
     <script>
       const entity = document.querySelector('a-entity');
@@ -35,6 +37,16 @@
         console.log(enent);
       })
     </script>
+    <script src='./js/three.min.js'></script>
+		<script src='./js/RGBELoader.js'></script>
+		<script src='./js/FBXLoader.js'></script>
+		<script src='./js/inflate.min.js'></script>
+		<script src="./js/camera-controls.js"></script>
+		<script src="./js/OrbitControls.js"></script>
+		<script src="./js/OBJLoader.js"></script>
+		<script src="./js/MTLLoader.js"></script>
+		<script src="./js/sampleJson.js"></script>
+		<script src="./js/script.js"></script>
   </body>
 
 
