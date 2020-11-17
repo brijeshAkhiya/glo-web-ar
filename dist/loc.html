@@ -18,7 +18,8 @@
             welcome = document.getElementById('welcome');
 
           arjs.value = 'sourceType: webcam; sourceWidth: 1280; sourceHeight: 960; trackingMethod: best; debugUIEnabled: false;';
-          gps.value = `latitude: ${position.coords.latitude - 0.001}; longitude: ${position.coords.longitude + 0.001}`;
+          gps.value = `latitude: 51.507351; longitude:-0.127758;`;
+          // gps.value = `latitude: ${position.coords.latitude - 0.001}; longitude: ${position.coords.longitude + 0.001}`;
           log(gps.value);
           scene.setAttributeNode(gps); /* Apply to whole scene */
           scene.setAttributeNode(arjs);
