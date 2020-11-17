@@ -19,10 +19,11 @@
     <a-scene vr-mode-ui="enabled: false;" arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
       <a-assets>
         <!-- <a-asset-item id="tree-obj" src="./untitled-scene-dae/untitled-scene.dae"></a-asset-item> -->
-        <a-asset-item id="cityModel" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item>
+        <a-asset-item id="cityModel"
+          src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf">
+        </a-asset-item>
       </a-assets>
-      <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
-        <a-entity collada-model="#tree-obj"></a-entity>
+      <a-entity gltf-model='#cityModel' position='0 1.43 -3' scale='1 1 1'>
       </a-entity>
       <a-entity camera look-controls>
       </a-entity>
