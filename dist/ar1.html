@@ -22,20 +22,22 @@
       longitude = location.coords.longitude;
       console.log(location.coords.latitude, location.coords.longitude)
     })
+    const distanceMsg = document.querySelector('[gps-entity-place]');
+    console.log(distanceMsg);   // "890 meters"
   </script>
 </head>
 <body>
-  <a-scene vr-mode-ui="enabled: false;" arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+  <a-scene vr-mode-ui="enabled: false;" arjs="sourceType: webcam;">
     <a-camera rotation-reader gps-camera rotation-reader></a-camera>
     <a-assets>
       <!-- <a-asset-item id="tree-obj" src="./untitled-scene-dae/untitled-scene.dae"></a-asset-item> -->
-      <a-asset-item id="cityModel"
+      <a-asset-item  id="cityModel"
         src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf">
       </a-asset-item>
     </a-assets>
-    <a-entity gltf-model='#cityModel' position='0 1.43 -3' scale='1 1 1'>
+    <a-entity gps-entity-place="latitude:22.258651999999998; longitude: 71.1923805;" position='0 1.43 -3' scale='0.65 0.65 0.65' gltf-model='#cityModel' >
     </a-entity>
-    <a-text value="snfjkdsnfkjbdsjfbjdsbgkdsbjhfgbsdjkbfkjdsbfkjb" scale="15 15 15" look-at="[gps-camera]" gps-entity-place="latitude:22.258651999999998; longitude: 71.1923805;">
+    <a-text position='0 1.43 -3' scale='0.65 0.65 0.65' value="snfjkdsnfkjbdsjfbjdsbgkdsbjhfgbsdjkbfkjdsbfkjb" look-at="[gps-camera]" gps-entity-place="latitude:22.258651999999998; longitude: 71.1923805;">
     </a-text>
   </a-scene>
 </body>
