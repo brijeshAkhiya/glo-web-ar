@@ -16,19 +16,14 @@
   </head>
 
   <body>
-    <a-scene arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+    <a-scene vr-mode-ui="enabled: false;" arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
       <a-assets>
-        <a-asset-item id="tree-obj" src="./archive (1)/model_Coke_20171226_153241217.obj"></a-asset-item>
-        <a-asset-item id="tree-mtl" src="./archive (1)/materials.mtl"></a-asset-item>
-        <!-- <a-asset-item id="cityModel" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item> -->
+        <!-- <a-asset-item id="tree-obj" src="./untitled-scene-dae/untitled-scene.dae"></a-asset-item> -->
+        <a-asset-item id="cityModel" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item>
       </a-assets>
-
-      <!-- Image links. -->
       <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
-        <a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl"></a-entity>
+        <a-entity collada-model="#tree-obj"></a-entity>
       </a-entity>
-
-      <!-- Camera + cursor. -->
       <a-entity camera look-controls>
       </a-entity>
     </a-scene>
