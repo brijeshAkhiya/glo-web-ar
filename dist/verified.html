@@ -122,10 +122,11 @@
 		<script>
 			document.querySelector('button').style.display = 'none';
 			document.querySelector('model-viewer').addEventListener('load', () => {
-				// if (document.querySelector('button')) {
+				if (document.querySelector('button')) {
 					console.log(document.querySelector('button'));
+					document.querySelector('button').click();
 					document.querySelector('p').innerHTML = document.querySelector('button');
-				// }
+				}
 			})
 		</script>
 	</body>
