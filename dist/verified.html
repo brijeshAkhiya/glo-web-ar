@@ -117,15 +117,17 @@
 	<body>
 		<model-viewer style="width: 100%;" id="x" src="./Bulb Model/model.gltf" autoplay ar
 			ar-modes="webxr scene-viewer quick-look" ar-scale="auto" camera-controls ios-src="./Bulb Model/model.usdz">
-			<button id="ar" slot="ar-button"
+			<!-- <button id="ar" slot="ar-button"
         style="width: 50px; height: 50px; background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
         👋 Activate AR
-      </button>
+      </button> -->
 		</model-viewer>
 		<p></p>
 		<script>
-			document.getElementById('ar').style.display = "none";
-			document.getElementById('ar').click()
+			const button = document.querySelector('button');
+			button.addEventListener('load', () => {
+				button.click();
+			})
 		</script>
 	</body>
 
