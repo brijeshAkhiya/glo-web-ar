@@ -17,7 +17,8 @@
       ar-scale="auto" camera-controls alt="A 3D model of an astronaut" ios-src="./Astronaut Model/Astronaut.usdz">
     </model-viewer>
     <script>
-      if (document.getElementById('ar')){
+      document.body.addEventListener('load', () => {
+        if (document.querySelector('button')){
         alert('Ar supported');
         console.log(document.getElementById('ar'));
         document.getElementById('ar').click();
@@ -25,8 +26,9 @@
       else {
         alert('AR not supported');
         console.log(document.getElementById('ar'));
-        document.getElementById('ar').click();
+        // document.getElementById('ar').click();
       }
+      })
     </script>
   </body>
 
