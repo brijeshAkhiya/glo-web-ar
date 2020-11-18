@@ -124,12 +124,18 @@
 		</model-viewer>
 		<p></p>
 		<script>
-			const button = document.querySelector('button');
-			button.addEventListener('load', () => {
-				alert('done');
-				button.click();
-			})
-		</script>
+			const arButton = document.getElementById('ar');
+			arButton.style.display = "none";
+      const arModel = document.getElementById('x');
+      arModel.addEventListener('load', () => {
+        if (arButton) {
+          arButton.click();
+          alert('loaded');
+        } else {
+          alert('not loaded');
+        }
+      })
+    </script>
 	</body>
 
 </html>
