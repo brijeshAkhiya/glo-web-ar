@@ -126,6 +126,8 @@
 		<script>
 			const arButton = document.getElementById('ar');
 			arButton.style.display = "none";
+			document.querySelector('p').innerHTML = JSON.stringify(navigator.xr);
+			console.log(navigator.xr)
       const arModel = document.getElementById('x');
       arModel.addEventListener('load', () => {
         if (arButton) {
