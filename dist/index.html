@@ -5,6 +5,23 @@
     <title>AR Based Web App</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+    <style>
+      #error {
+        background-color: #ffffffdd;
+        border-radius: 16px;
+        padding: 16px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        transition: opacity 0.3s;
+      }
+      #error.hide {
+        opacity: 0;
+        visibility: hidden;
+        transition: visibility 2s, opacity 1s 1s;
+      }
+    </style>
   </head>
 
   <!-- <body onload="checkQrCode()">
@@ -13,14 +30,21 @@
   </body> -->
 
   <body>
-    <model-viewer id="x" src="./Astronaut Model/Astronaut.gltf" ar ar-modes="webxr scene-viewer quick-look"
-      ar-scale="auto" camera-controls alt="A 3D model of an astronaut" ios-src="./Astronaut Model/Astronaut.usdz">
-      <button id="ar" slot="ar-button"
-        style="width: 50px; height: 50px; background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
-        👋 Activate AR
-      </button>
+    <model-viewer id="model-viewer" src="./Astronaut Model/Astronaut.gltf" ios-src="./Astronaut Model/Astronaut.usdz" ar ar-modes="scene-viewer webxr" ar-scale="auto" camera-controls alt="A 3D model of an astronaut" skybox-image="../../shared-assets/environments/aircraft_workshop_01_1k.hdr">
+      <div id="error" class="hide">AR is not supported on this device</div>
     </model-viewer>
-    <pre id="log"></pre>
+    <script>
+      document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
+        if(event.detail.status === 'failed'){
+          const error = document.querySelector("#error");
+          error.classList.remove('hide');
+          error.addEventListener('transitionend',(event) => {
+            error.classList.add('hide');
+          });
+        }
+      });
+    </script>
+    
     <script>
       const model = document.querySelector('model-viewer');
       const button = document.getElementById('ar');
@@ -30,19 +54,6 @@
       model.addEventListener('load', () => {
         button.click();
       })
-      (function () {
-    var old = console.log;
-    var logger = document.getElementById('log');
-    console.log = function () {
-      for (var i = 0; i < arguments.length; i++) {
-        if (typeof arguments[i] == 'object') {
-            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '<br />';
-        } else {
-            logger.innerHTML += arguments[i] + '<br />';
-        }
-      }
-    }
-})();
       // document.body.addEventListener('load', () => {
       //   if (document.querySelector('button')){
       //   alert('Ar supported');
