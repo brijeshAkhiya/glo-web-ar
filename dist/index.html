@@ -30,12 +30,13 @@
   </body> -->
 
   <body>
-    <model-viewer id="model-viewer" src="./Astronaut Model/Astronaut.gltf" ios-src="./Astronaut Model/Astronaut.usdz" ar ar-modes="scene-viewer webxr" ar-scale="auto" camera-controls alt="A 3D model of an astronaut" skybox-image="../../shared-assets/environments/aircraft_workshop_01_1k.hdr">
+    <model-viewer id="model-viewer" src="./Astronaut Model/Astronaut.gltf" ios-src="./Astronaut Model/Astronaut.usdz" ar ar-modes="scene-viewer webxr" ar-scale="auto" camera-controls alt="A 3D model of an astronaut">
       <div id="error" class="hide">AR is not supported on this device</div>
     </model-viewer>
     <script>
       document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
         if(event.detail.status === 'failed'){
+          alert('failed');
           const error = document.querySelector("#error");
           error.classList.remove('hide');
           error.addEventListener('transitionend',(event) => {
@@ -46,14 +47,14 @@
     </script>
     
     <script>
-      const model = document.querySelector('model-viewer');
-      const button = document.getElementById('ar');
-      button.addEventListener('click', () => {
-        alert('clicked');
-      });
-      model.addEventListener('load', () => {
-        button.click();
-      })
+      // const model = document.querySelector('model-viewer');
+      // const button = document.getElementById('ar');
+      // button.addEventListener('click', () => {
+      //   alert('clicked');
+      // });
+      // model.addEventListener('load', () => {
+      //   button.click();
+      // })
       // document.body.addEventListener('load', () => {
       //   if (document.querySelector('button')){
       //   alert('Ar supported');
