@@ -34,7 +34,9 @@
       <div id="error" class="hide">AR is not supported on this device</div>
     </model-viewer>
     <script>
-      console.log(document.querySelector('button'));
+      document.querySelector('model-viewer').addEventListener('load', () => {
+        console.log(document.querySelector('button'));
+      })
       document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
         if(event.detail.status === 'failed'){
           alert('failed');
