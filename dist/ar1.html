@@ -5,6 +5,11 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>GeoAR.js demo</title>
+    <style>
+      #x {
+        z-index: 10;
+      }
+    </style>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
@@ -12,20 +17,30 @@
     <script>
       console.log(THREE)
       console.log(document.querySelector('a-scene'));
-        AFRAME.registerComponent('pointlight', {
-          init: function () {
-            this.el.setObject3D('light', new THREE.PointLight());
-          }
-        });
-        
+      AFRAME.registerComponent('pointlight', {
+        init: function () {
+          this.el.setObject3D('light', new THREE.PointLight());
+        }
+      });
     </script>
   </head>
 
   <body style='margin: 0; overflow: hidden;'>
-    <a-scene vr-mode-ui="enabled: false" embedded
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+
+    <!-- Use it like any other HTML element -->
+    <model-viewer id="x" src="./Coke Model/Gltf model/model_Coke_20171226_153241217.gltf" ar
+      ar-modes="webxr scene-viewer quick-look" ar-scale="auto" camera-controls alt="A 3D model of an astronaut"
+      ios-src="./Coke Model/Gltf model/model_Coke_20171226_153241217.gltf">
+      <button slot="ar-button"
+        style="width: 50px; height: 50px; background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
+        👋 Activate AR
+      </button>
+    </model-viewer>
+    <!-- <a-scene vr-mode-ui="enabled: false" embedded
       arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
       <a-camera gps-camera rotation-reader></a-camera>
-      <a-text value="jsnfjkdsnfjkdnsfns" position='0 1.43 -3' scale="15 15 15" look-at="10 10 10"></a-text>
       
-    </a-scene>>
+    </a-scene> -->
   </body>
