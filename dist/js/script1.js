@@ -123,6 +123,27 @@ function init(result) {
 
 	window.addEventListener('resize', onWindowResize, false);
 
+	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		var constraints = { video: { width: 1278, height: 720, facingMode: 'user' } };
+
+		navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+
+			// apply the stream to the video element used in the texture
+
+			video.srcObject = stream;
+			video.play();
+
+		}).catch(function (error) {
+
+			console.error('Unable to access the camera/webcam.', error);
+
+		});
+
+	} else {
+
+		console.error('MediaDevices interface not available.');
+	}
+
 
 }
 
