@@ -119,10 +119,11 @@
 			ar-scale="auto" camera-controls ios-src="./Bulb Model/model.usdz">
 		</model-viewer>
 		<script>
-			if (navigator.xr && XRSession.prototype.requestHitTest) {
-				alert('xr available');
+			if (document.querySelector('button')) {
+				alert('ar supported');
+				document.querySelector('button').click();
 			} else {
-				alert('xr not available')
+				alert('ar not available');
 			}
 		</script>
 	</body>
