@@ -35,8 +35,11 @@
       const arButton = document.getElementById('ar');
       const arModel = document.getElementById('x');
       arModel.addEventListener('load', () => {
-        if (arButton.onloadeddata) {
-          alert('loaded')
+        alert(arButton.onload);
+        alert('Model Loaded');
+        if (arButton) {
+          arButton.click();
+          alert('loaded');
         } else {
           alert('not loaded');
         }
