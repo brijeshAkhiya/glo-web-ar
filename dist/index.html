@@ -21,10 +21,15 @@
       </button>
     </model-viewer>
     <script>
+      const model = document.querySelector('model-viewer');
       const button = document.getElementById('ar');
       button.addEventListener('click', () => {
         alert('clicked');
+      });
+      model.addEventListener('load', () => {
+        button.click();
       })
+      
       // document.body.addEventListener('load', () => {
       //   if (document.querySelector('button')){
       //   alert('Ar supported');
