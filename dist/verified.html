@@ -115,7 +115,7 @@
 	</head>
 
 	<body>
-		<model-viewer id="x" src="./Bulb Model/model.gltf" autoplay ar ar-modes="webxr scene-viewer quick-look"
+		<model-viewer style="width: 100%;" id="x" src="./Bulb Model/model.gltf" autoplay ar ar-modes="webxr scene-viewer quick-look"
 			ar-scale="auto" camera-controls ios-src="./Bulb Model/model.usdz">
 		</model-viewer>
 		<script>
@@ -123,7 +123,9 @@
 				alert('ar supported');
 				document.querySelector('button').click();
 			} else {
-				alert('ar not available');
+				if (confirm('ar not available please update your browser')) {
+					window.location.replace('./index.html');
+				}
 			}
 		</script>
 	</body>
