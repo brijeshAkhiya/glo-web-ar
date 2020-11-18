@@ -120,32 +120,7 @@
 		</model-viewer>
 		<p></p>
 		<script>
-			async function init() {
-				// The entry point of the WebXR Device API is on `navigator.xr`.
-				// We also want to ensure that `XRSession` has `requestHitTest`,
-				// indicating that the #webxr-hit-test flag is enabled.
-				if (navigator.xr && XRSession.prototype.requestHitTest) {
-					try {
-						await navigator.xr.requestDevice();
-						console.log(navigator.xr.requestDevice())
-					} catch (e) {
-						// If there are no valid XRDevice's on the system,
-						// `requestDevice()` rejects the promise. Catch our
-						// awaited promise and display message indicating there
-						// are no valid devices.
-						alert('ar not supported');
-						return;
-					}
-				} else {
-					// If `navigator.xr` or `XRSession.prototype.requestHitTest`
-					// does not exist, we must display a message indicating there
-					// are no valid devices.
-					alert('ar not supported');
-					return;
-				}
-			}
-			init().then('working');
-			init().catch('not working');
+			document.querySelector('button').style.display = 'none';
 			document.querySelector('model-viewer').addEventListener('load', () => {
 				// if (document.querySelector('button')) {
 					console.log(document.querySelector('button'));
