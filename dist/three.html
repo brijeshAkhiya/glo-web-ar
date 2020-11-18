@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<title>three.js webgl - interactive cubes</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			body {
+				background-color: #f0f0f0;
+				color: #444;
+			}
+			a {
+				color: #08f;
+			}
+		</style>
+	</head>
+	<body>
 
-  <head>
-    <title>three.js ar - hit test</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link type="text/css" rel="stylesheet" href="main.css">
-  </head>
+		<div id="info">
+			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive cubes
+		</div>
 
-  <body>
+		<script type="module">
 
-    <div id="info">
-      <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> ar - hit test<br />(Chrome Android 81+)
-    </div>
+			import * as THREE from './js/three.module.js';
 
-    <script type="module">
+			// import Stats from './js/stats.module.js';
 
-      import * as THREE from './js/three.module.js';
-			import { ARButton } from './js/ARButton.js';
+			let container, stats;
+			let camera, scene, raycaster, renderer;
 
-			let container;
-			let camera, scene, renderer;
-			let controller;
+			let INTERSECTED;
+			let theta = 0;
 
-			let reticle;
-
-			let hitTestSource = null;
-			let hitTestSourceRequested = false;
+			const mouse = new THREE.Vector2();
+			const radius = 100;
 
 			init();
 			animate();
@@ -36,55 +44,45 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
+
 				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xf0f0f0 );
 
-				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
-
-				const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
-				light.position.set( 0.5, 1, 0.25 );
+				const light = new THREE.DirectionalLight( 0xffffff, 1 );
+				light.position.set( 1, 1, 1 ).normalize();
 				scene.add( light );
 
-				//
+				const geometry = new THREE.BoxBufferGeometry( 20, 20, 20 );
 
-				renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.xr.enabled = true;
-				container.appendChild( renderer.domElement );
+				for ( let i = 0; i < 2000; i ++ ) {
 
-				//
+					const object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
 
-				document.body.appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
+					object.position.x = Math.random() * 800 - 400;
+					object.position.y = Math.random() * 800 - 400;
+					object.position.z = Math.random() * 800 - 400;
 
-				//
+					object.rotation.x = Math.random() * 2 * Math.PI;
+					object.rotation.y = Math.random() * 2 * Math.PI;
+					object.rotation.z = Math.random() * 2 * Math.PI;
 
-				const geometry = new THREE.CylinderBufferGeometry( 0.1, 0.1, 0.2, 32 ).translate( 0, 0.1, 0 );
+					object.scale.x = Math.random() + 0.5;
+					object.scale.y = Math.random() + 0.5;
+					object.scale.z = Math.random() + 0.5;
 
-				function onSelect() {
-
-					if ( reticle.visible ) {
-
-						const material = new THREE.MeshPhongMaterial( { color: 0xffffff * Math.random() } );
-						const mesh = new THREE.Mesh( geometry, material );
-						mesh.position.setFromMatrixPosition( reticle.matrix );
-						mesh.scale.y = Math.random() * 2 + 1;
-						scene.add( mesh );
-
-					}
+					scene.add( object );
 
 				}
 
-				controller = renderer.xr.getController( 0 );
-				controller.addEventListener( 'select', onSelect );
-				scene.add( controller );
+				raycaster = new THREE.Raycaster();
 
-				reticle = new THREE.Mesh(
-					new THREE.RingBufferGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
-					new THREE.MeshBasicMaterial()
-				);
-				reticle.matrixAutoUpdate = false;
-				reticle.visible = false;
-				scene.add( reticle );
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
 				//
 
@@ -101,62 +99,59 @@
 
 			}
 
+			function onDocumentMouseMove( event ) {
+
+				event.preventDefault();
+
+				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+			}
+
 			//
 
 			function animate() {
 
-				renderer.setAnimationLoop( render );
+				requestAnimationFrame( animate );
+
+				render();
 
 			}
 
-			function render( timestamp, frame ) {
+			function render() {
 
-				if ( frame ) {
+				theta += 0.1;
 
-					const referenceSpace = renderer.xr.getReferenceSpace();
-					const session = renderer.xr.getSession();
+				camera.position.x = radius * Math.sin( THREE.MathUtils.degToRad( theta ) );
+				camera.position.y = radius * Math.sin( THREE.MathUtils.degToRad( theta ) );
+				camera.position.z = radius * Math.cos( THREE.MathUtils.degToRad( theta ) );
+				camera.lookAt( scene.position );
 
-					if ( hitTestSourceRequested === false ) {
+				camera.updateMatrixWorld();
 
-						session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {
+				// find intersections
 
-							session.requestHitTestSource( { space: referenceSpace } ).then( function ( source ) {
+				raycaster.setFromCamera( mouse, camera );
 
-								hitTestSource = source;
+				const intersects = raycaster.intersectObjects( scene.children );
 
-							} );
+				if ( intersects.length > 0 ) {
 
-						} );
+					if ( INTERSECTED != intersects[ 0 ].object ) {
 
-						session.addEventListener( 'end', function () {
+						if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
 
-							hitTestSourceRequested = false;
-							hitTestSource = null;
-
-						} );
-
-						hitTestSourceRequested = true;
-
-					}
-
-					if ( hitTestSource ) {
-
-						const hitTestResults = frame.getHitTestResults( hitTestSource );
-
-						if ( hitTestResults.length ) {
-
-							const hit = hitTestResults[ 0 ];
-
-							reticle.visible = true;
-							reticle.matrix.fromArray( hit.getPose( referenceSpace ).transform.matrix );
-
-						} else {
-
-							reticle.visible = false;
-
-						}
+						INTERSECTED = intersects[ 0 ].object;
+						INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+						INTERSECTED.material.emissive.setHex( 0xff0000 );
 
 					}
+
+				} else {
+
+					if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+
+					INTERSECTED = null;
 
 				}
 
@@ -165,6 +160,6 @@
 			}
 
 		</script>
-  </body>
 
+	</body>
 </html>

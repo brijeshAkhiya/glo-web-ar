@@ -26,8 +26,6 @@ var renderer;
 var cameraControls;
 var wheelScroll = 0;
 var mainObj = null;
-var raycaster = new THREE.Raycaster();
-var mouse = new THREE.Vector2();
 var latlng = lat215;// lat215;// latTest2 // latlngDataJson // lat225
 var finalLatLngArray = [];
 var xTotal = 0;
