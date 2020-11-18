@@ -5,15 +5,6 @@
     <title>AR Based Web App</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
-    <script>
-      if (document.getElementById('ar')) {
-        alert('Ar supported');
-        document.getElementById('ar').click();
-      } else {
-        alert('AR not supported');
-        document.getElementById('ar').click();
-      }
-    </script>
   </head>
 
   <!-- <body onload="checkQrCode()">
@@ -25,6 +16,18 @@
     <model-viewer id="x" src="./Astronaut Model/Astronaut.gltf" ar ar-modes="webxr scene-viewer quick-look"
       ar-scale="auto" camera-controls alt="A 3D model of an astronaut" ios-src="./Astronaut Model/Astronaut.usdz">
     </model-viewer>
+    <script>
+      if (document.getElementById('ar')){
+        alert('Ar supported');
+        console.log(document.getElementById('ar'));
+        document.getElementById('ar').click();
+      }
+      else {
+        alert('AR not supported');
+        console.log(document.getElementById('ar'));
+        document.getElementById('ar').click();
+      }
+    </script>
   </body>
 
 </html>
