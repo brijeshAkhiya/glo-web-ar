@@ -68,16 +68,18 @@
       // }).catch((err) => {
       //   console.log(err);
       // });
-      document.querySelector('button').addEventListener('click', () => {
-        const url = window.location.href.split('#')[1]
-        console.log('clicked');
-        if (url === 'model-viewer-no-ar-fallback') {
-          console.log('x');
+      document.querySelector('model-viewer').addEventListener('load', () => {
+        const url = window.location.href.split('#')[1];
+        console.log('Model Loaded');
+        // if (url === 'model-viewer-no-ar-fallback') {
+        //   console.log('x');
+        // }
+        if (document.querySelector('button')) {
+          console.log('button');
+          document.querySelector('button').click();
         }
-      })
-      setTimeout(() => {
-        document.querySelector('button').click();
-      }, 5000);
+
+      });
     </script>
 
     <script>
