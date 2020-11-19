@@ -1,20 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-	<a href="intent://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf&mode=ar_only#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Avocado</a>;
-	<script>
-		const a = document.querySelector('a');
-		// document.body.addEventListener('load', () => {
-			// console.log('a');
-			if (a) {
-				a.click();
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<script></script>
+		<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+		<script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+		<style>
+			#error {
+				background-color: #ffffffdd;
+				border-radius: 16px;
+				padding: 16px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate3d(-50%, -50%, 0);
+				transition: opacity 0.3s;
 			}
-		// })
-	</script>
-</body>
+
+			#error.hide {
+				opacity: 0;
+				visibility: hidden;
+				transition: visibility 2s, opacity 1s 1s;
+			}
+		</style>
+	</head>
+
+	<body>
+		<model-viewer style="display: none;" id="model-viewer" src="./Bulb Model/model.gltf"
+			ios-src="./Bulb Model/model.usdz" ar ar-modes="scene-viewer webxr" ar-scale="auto" camera-controls
+			alt="Your Code is Verified">
+			<div id="error" class="hide">AR is not supported on this device</div>
+			<button id="ar" slot="ar-button"
+				style="width: 50px; height: 50px; background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
+				👋 Activate AR
+			</button>
+		</model-viewer>
+		<button onclick="activateAr()" id="arButton">
+			Start AR
+		</button>
+		<!-- <a href="intent://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf;mode=ar_preferred;#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Avocado</a> -->
+		<script>
+			if (window.location.href.split('#')[1] === 'model-viewer-no-ar-fallback') {
+				// document.querySelector('button').click();
+			}
+			document.querySelector('model-viewer').addEventListener('load', () => {})
+			document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
+				if (event.detail.status === 'failed') {
+					alert('failed');
+					const error = document.querySelector("#error");
+					error.classList.remove('hide');
+					error.addEventListener('transitionend', (event) => {
+						error.classList.add('hide');
+					});
+				}
+			});
+			function activateAr() {
+				navigator.xr.requestSession('immersive-ar')
+					.then((session) => {
+						if (session) {
+							document.getElementById('ar').click();
+						}
+					})
+					.catch((err) => {
+						document.getElementById('ar').innerHTML = "AR not supported";
+						document.getElementById('ar').disabled = true;
+						console.log(err);
+					})
+			}
+		</script>
+	</body>
+
 </html>
