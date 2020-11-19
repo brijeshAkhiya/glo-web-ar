@@ -54,9 +54,11 @@
 			});
 			document.querySelector('model-viewer').addEventListener('load', () => {
 				if (document.querySelector('button')) {
-					setTimeout(() => {
-						document.querySelector('button').click();
-					}, 3000)
+					setInterval(() => {
+						if (!document.querySelector('button').click()) {
+							document.querySelector('button').click();
+						}
+					}, 2000)
 				}
 			});
 		</script>
