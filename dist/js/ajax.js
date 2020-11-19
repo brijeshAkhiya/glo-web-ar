@@ -1,3 +1,4 @@
+document.getElementById('model-viewer').style.display = "none";
 function checkQrCode() {
   var params = [], hash;
   var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -12,9 +13,12 @@ function checkQrCode() {
       if (JSON.parse(this.response).status === 200) {
         alert("Successfully run!!");
       } else if (JSON.parse(this.response).status === 403) {
-        window.location.replace('../verified.html')
+        // window.location.replace('../verified.html')
+        document.querySelector('button').click();
       } else if (JSON.parse(this.response).status === 404) {
-        window.location.replace('../verified.html')
+        document.getElementById('model-viewer').style.display = "block";
+        document.getElementById('ar').click();
+        // window.open('http://localhost:3000/verified.html', '_self');
       }
     }
     

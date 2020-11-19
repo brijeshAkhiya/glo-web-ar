@@ -37,6 +37,7 @@
 			</button>
 		</model-viewer>
 		<script>
+			console.log(window.location.href);
 			document.querySelector('model-viewer').addEventListener('load', () => {})
 			document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
 				if (event.detail.status === 'failed') {
@@ -54,9 +55,13 @@
 				if (document.querySelector('button')) {
 					console.log('button');
 					document.querySelector('button').click();
+					document.querySelector('button').addEventListener('click', () => {
+						if (url === 'model-viewer-no-ar-fallback') {
+							document.querySelector('button').click();
+						}
+					});
 				}
 			});
 		</script>
 	</body>
-
 </html>
