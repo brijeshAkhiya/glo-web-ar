@@ -1,11 +1,16 @@
 const isAndroid = /android/i.test(navigator.userAgent);
 if (isAndroid) {
-	start();
+
 } else {
 	window.location.replace('../ar.html');
 }
 function start(result) {
-	`${result}`()
+	if (result) {
+		activateAr();
+	} else {
+		withoutPermission();
+	}
+	// `${result}`()
 }
 
 
