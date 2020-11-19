@@ -31,7 +31,7 @@
   </body> -->
 
   <body>
-    <model-viewer id="model-viewer" src="./Astronaut Model/Astronaut.gltf" ios-src="./Astronaut Model/Astronaut.usdz" ar
+    <model-viewer id="model-viewer" src="./Bulb Model/model.gltf" ios-src="./Bulb Model/model.usdz" ar
       ar-modes="scene-viewer webxr" ar-scale="auto" camera-controls alt="A 3D model of an astronaut">
       <div id="error" class="hide">AR is not supported on this device</div>
       <button id="ar" slot="ar-button"
@@ -51,30 +51,33 @@
           });
         }
       });
-      navigator.xr.isSessionSupported("inline").then((result) => {
-        if (result) {
-          document.querySelector('model-viewer').addEventListener('load', () => {
-            navigator.xr.requestSession("inline").then((session) => {
-              console.log(session);
-              if (document.querySelector('button')) {
-                console.log(document.querySelector('button'))
-                document.querySelector('button').addEventListener('click', () => {
-                  console.log('clicked')
-                })
-                setTimeout(() => {
-                  document.querySelector('button').click();
-                }, 3000)
-              }
-            }).catch((err) => {
-              console.error(err);
-            })
-          })
-        } else {
-          console.log('ar not supported');
+      // navigator.xr.isSessionSupported("inline").then((result) => {
+      //   if (result) {
+      //     document.querySelector('model-viewer').addEventListener('load', () => {
+      //       navigator.xr.requestSession("inline").then((session) => {
+      //         console.log(session);
+      //         if (document.querySelector('button')) {
+      //         }
+      //       }).catch((err) => {
+      //         console.error(err);
+      //       })
+      //     })
+      //   } else {
+      //     console.log('ar not supported');
+      //   }
+      // }).catch((err) => {
+      //   console.log(err);
+      // });
+      document.querySelector('button').addEventListener('click', () => {
+        const url = window.location.href.split('#')[1]
+        console.log('clicked');
+        if (url === 'model-viewer-no-ar-fallback') {
+          console.log('x');
         }
-      }).catch((err) => {
-        console.log(err);
-      });
+      })
+      setTimeout(() => {
+        document.querySelector('button').click();
+      }, 3000);
     </script>
 
     <script>
