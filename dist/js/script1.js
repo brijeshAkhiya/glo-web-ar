@@ -5,7 +5,7 @@ if (isAndroid) {
 	window.location.replace('../ar.html');
 }
 function start(result) {
-	result()
+	`${result}`()
 }
 
 
