@@ -39,14 +39,6 @@
         alert('Model Loaded');
         if (arButton) {
           alert('loaded');
-          const promise = new Promise((res, rej) => {
-            if (res) {
-              arButton.click();
-            } else {
-              alert('AR not supported');
-            }
-          }).then(console.log('works')).catch(console.log('not works'));
-          
         } else {
           alert('not loaded');
         }
