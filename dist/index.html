@@ -16,6 +16,7 @@
         transform: translate3d(-50%, -50%, 0);
         transition: opacity 0.3s;
       }
+
       #error.hide {
         opacity: 0;
         visibility: hidden;
@@ -30,31 +31,52 @@
   </body> -->
 
   <body>
-    <model-viewer id="model-viewer" src="./Astronaut Model/Astronaut.gltf" ios-src="./Astronaut Model/Astronaut.usdz" ar ar-modes="scene-viewer webxr" ar-scale="auto" camera-controls alt="A 3D model of an astronaut">
+    <model-viewer id="model-viewer" src="./Astronaut Model/Astronaut.gltf" ios-src="./Astronaut Model/Astronaut.usdz" ar
+      ar-modes="scene-viewer webxr" ar-scale="auto" camera-controls alt="A 3D model of an astronaut">
       <div id="error" class="hide">AR is not supported on this device</div>
-      <!-- <button id="ar" slot="ar-button"
+      <button id="ar" slot="ar-button"
         style="width: 50px; height: 50px; background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
         👋 Activate AR
-      </button> -->
+      </button>
     </model-viewer>
     <script>
-      console.log(document.getElementById('default-ar-button'));
-      document.querySelector('model-viewer').addEventListener('load', () => {
-        console.log(document.querySelector('button'));
-        console.log(navigator.xr)
-      })
+      document.querySelector('model-viewer').addEventListener('load', () => {})
       document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
-        if(event.detail.status === 'failed'){
+        if (event.detail.status === 'failed') {
           alert('failed');
           const error = document.querySelector("#error");
           error.classList.remove('hide');
-          error.addEventListener('transitionend',(event) => {
+          error.addEventListener('transitionend', (event) => {
             error.classList.add('hide');
           });
         }
       });
+      navigator.xr.isSessionSupported("inline").then((result) => {
+        if (result) {
+          document.querySelector('model-viewer').addEventListener('load', () => {
+            navigator.xr.requestSession("inline").then((session) => {
+              console.log(session);
+              if (document.querySelector('button')) {
+                console.log(document.querySelector('button'))
+                document.querySelector('button').addEventListener('click', () => {
+                  console.log('clicked')
+                })
+                setTimeout(() => {
+                  document.querySelector('button').click();
+                }, 3000)
+              }
+            }).catch((err) => {
+              console.error(err);
+            })
+          })
+        } else {
+          console.log('ar not supported');
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
     </script>
-    
+
     <script>
       // const model = document.querySelector('model-viewer');
       // const button = document.getElementById('ar');

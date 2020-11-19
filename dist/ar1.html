@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three.ar.js@latest/dist/three.ar.min.js"></script>
-    
+
   </head>
 
   <body style='margin: 0; overflow: hidden;'>
@@ -38,7 +38,83 @@
         alert(arButton.onload);
         alert('Model Loaded');
         if (arButton) {
-          alert('loaded');
+          // Prefer immersive AR.
+          let sessionRequirements = {
+            immersive: true,
+            worldIntegration: true
+          };
+          let sessionConfig = {
+            foveated: true,
+            planes: true,
+            pixelData: true
+          };
+          xrDevice.supportsSession(sessionRequirements).then(
+            function () {
+              console.log('')
+            }
+          ).catch(
+            function (error) {
+              // The first fallback is "inline AR" (aka smartphone AR).
+              sessionRequirements = {
+                mode: 'inline',
+                worldIntegration: true
+              };
+              sessionConfig = {
+                planes: true,
+                pixelData: true
+              };
+              xrDevice.supportsSession(sessionRequirements).then(
+                function () {
+                  // Display Start (inline) AR button.
+                }
+              );
+            }
+          ).catch(
+            function (error) {
+              // There is a limited VR fallback, so try immersive VR.
+              sessionRequirements = {
+                immersive: true,
+                worldIntegration: false
+              };
+              sessionConfig = {
+                foveated: true
+              };
+              xrDevice.supportsSession(sessionRequirements).then(
+                function () {
+                  // Display Enter VR button.
+                }
+              );
+            }
+          ).catch(
+            function (error) {
+              // Finally, try "magic window" VR.
+              sessionRequirements = {
+                mode: 'inline',
+                worldIntegration: false
+              };
+              sessionConfig = {};
+              xrDevice.supportsSession(sessionRequirements).then(
+                function () {
+                  // Request VR "magic window" session, which does not
+                  // (generally) require user activation.
+                  // Note: The application could also choose to do this in all cases.
+                  startXrSession();
+                }
+              );
+            }
+          ).catch(
+            function (error) {
+              // Display "Your client is unsupported."]  
+            }
+          );
+
+          function startXrSession() {
+            xrDevice.requestSession(sessionRequirements, sessionConfig);
+          }
+
+          function onXRButtonClicked() {
+            startXrSession();
+          }
         } else {
           alert('not loaded');
         }
