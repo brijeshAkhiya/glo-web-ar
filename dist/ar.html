@@ -36,6 +36,7 @@
       </button>
     </model-viewer>
     <script>
+      document.querySelector('button').style.display = "none";
       document.querySelector("model-viewer").addEventListener('ar-status', (event) => {
         if (event.detail.status === 'failed') {
           alert('failed');
