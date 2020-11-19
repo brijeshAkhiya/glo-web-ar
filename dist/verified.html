@@ -36,8 +36,11 @@
 				👋 Activate AR
 			</button>
 		</model-viewer>
+		<!-- <a href="intent://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf;mode=ar_preferred;#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Avocado</a> -->
 		<script>
-			console.log(window.location.href);
+			if (window.location.href.split('#')[1] === 'model-viewer-no-ar-fallback') {
+						// document.querySelector('button').click();
+			}
 			document.querySelector('model-viewer').addEventListener('load', () => {})
 			document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
 				if (event.detail.status === 'failed') {
@@ -50,16 +53,10 @@
 				}
 			});
 			document.querySelector('model-viewer').addEventListener('load', () => {
-				const url = window.location.href.split('#')[1];
-				console.log('Model Loaded');
 				if (document.querySelector('button')) {
-					console.log('button');
-					document.querySelector('button').click();
-					document.querySelector('button').addEventListener('click', () => {
-						if (url === 'model-viewer-no-ar-fallback') {
-							document.querySelector('button').click();
-						}
-					});
+					setTimeout(() => {
+						document.querySelector('button').click();
+					}, 3000)
 				}
 			});
 		</script>

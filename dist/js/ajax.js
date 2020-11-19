@@ -16,9 +16,8 @@ function checkQrCode() {
         // window.location.replace('../verified.html')
         document.querySelector('button').click();
       } else if (JSON.parse(this.response).status === 404) {
-        document.getElementById('model-viewer').style.display = "block";
-        document.getElementById('ar').click();
-        // window.open('http://localhost:3000/verified.html', '_self');
+        
+        
       }
     }
     
