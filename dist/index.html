@@ -38,6 +38,14 @@
     <a href="http://localhost:3000/verified.html">View AR</a>
     <script src="./js/ajax.js">
     </script>
+    <script>
+      const isAndroid = /android/i.test(navigator.userAgent);
+      if (isAndroid) {
+        alert('android');
+      } else {
+        alert('ios');
+      }
+    </script>
   </body>
 
 </html>
