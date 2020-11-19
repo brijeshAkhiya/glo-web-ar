@@ -14,7 +14,7 @@ function checkQrCode() {
       } else if (JSON.parse(this.response).status === 403) {
         window.location.replace('../verified.html')
       } else if (JSON.parse(this.response).status === 404) {
-        window.location.replace('../Not_Verified.html')
+        window.location.replace('../verified.html')
       }
     }
     
