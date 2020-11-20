@@ -31,6 +31,7 @@ function activateAr() {
 	navigator.xr.requestSession('immersive-ar')
 		.then((session) => {
 			if (session) {
+				console.log(session);
 				document.getElementById('ar').click();
 			}
 		})
