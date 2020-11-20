@@ -22,8 +22,8 @@ function activateAr() {
 			}
 		})
 		.catch((err) => {
-			document.getElementById('ar').innerHTML = "AR not supported";
-			document.getElementById('ar').disabled = true;
+			alert('AR not supported');
+			window.location.replace('../index.html');
 			console.log(err);
 		})
 }
@@ -35,6 +35,18 @@ function withoutPermission() {
 					document.querySelector('button').click();
 				}
 			}, 2000)
+		}
+	});
+}
+function arNotSupported() {
+	document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
+		if (event.detail.status === 'failed') {
+			alert('failed');
+			const error = document.querySelector("#error");
+			error.classList.remove('hide');
+			error.addEventListener('transitionend', (event) => {
+				error.classList.add('hide');
+			});
 		}
 	});
 }
