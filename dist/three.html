@@ -29,7 +29,7 @@
 	</head>
 
 	<body>
-		<model-viewer style="display: none;" id="model-viewer" camera-controls autoplay ar shadow-intensity="1" src="./Bulb Model/model.gltf"
+		<model-viewer id="model-viewer" camera-controls autoplay ar shadow-intensity="1" src="./GLTF/Bulb_Verified_Options.gltf"
       ios-src="./Bulb Model/model.usdz" alt="Bulb Verified">
 			<div id="error" class="hide">AR is not supported on this device</div>
 			<button id="ar" slot="ar-button"
@@ -37,7 +37,7 @@
 				👋 Activate AR
 			</button>
 		</model-viewer>
-		<button onclick="start(1)" id="arButton">
+		<button onclick="activateAr()" id="arButton">
 			Start AR
 		</button>
 		<!-- <a href="intent://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf;mode=ar_preferred;#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Avocado</a> -->
