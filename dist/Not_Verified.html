@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
 
 	<head>
 		<style>
@@ -85,7 +85,7 @@
 		<script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 	</head>
 
-	<body onload="start(0)">
+	<body onload="start(0)"> -->
 		<!-- <button onclick="PlayAnimation()" style="position:absolute;top:10px;left:10px;width:100px;height:30px;border:0px">Play</button>
 		<button onclick="StopAnimation()" style="position:absolute;top:10px;left:120px;width:100px;height:30px;border:0px">Stop</button> -->
 		<!-- <div class="parent">
@@ -93,7 +93,7 @@
 			<div id="bulb"></div>
 		</div> -->
 		<!-- <canvas id="view3d" style="position:absolute;top:0px;left:0px;width:100%;height: 100%;"></canvas> -->
-		<script src='./js/three.min.js'></script>
+		<!-- <script src='./js/three.min.js'></script>
 		<script src='./js/RGBELoader.js'></script>
 		<script src='./js/FBXLoader.js'></script>
 		<script src='./js/inflate.min.js'></script>
@@ -103,6 +103,65 @@
 		<script src="./js/MTLLoader.js"></script>
 		<script src="./js/sampleJson.js"></script>
 		<script src="./js/script.js"></script>
+	</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<script></script>
+		<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+		<script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+		<style>
+			#error {
+				background-color: #ffffffdd;
+				border-radius: 16px;
+				padding: 16px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate3d(-50%, -50%, 0);
+				transition: opacity 0.3s;
+			}
+
+			#error.hide {
+				opacity: 0;
+				visibility: hidden;
+				transition: visibility 2s, opacity 1s 1s;
+			}
+		</style>
+	</head>
+
+	<body>
+		<model-viewer id="model-viewer" camera-controls autoplay ar shadow-intensity="1"
+			src="./Bulb Model/Not Verified_Bulb_Options.glb" ios-src="./Bulb Model/Not Verified_Bulb_Options.usdz" alt="Bulb Verified">
+			<div id="error" class="hide">AR is not supported on this device</div>
+			<button id="ar" slot="ar-button"
+				style="width: 50px; height: 50px; background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
+				👋 Activate AR
+			</button>
+		</model-viewer>
+		<button onclick="activateAr()" id="arButton">
+			Start AR
+		</button>
+		<script>
+			document.querySelector("#model-viewer").addEventListener('ar-status', (event) => {
+				if (event.detail.status === 'failed') {
+					alert('failed');
+					const error = document.querySelector("#error");
+					error.classList.remove('hide');
+					error.addEventListener('transitionend', (event) => {
+						error.classList.add('hide');
+					});
+				}
+			});
+		</script>
+		<script src="./js/script1.js"></script>
 	</body>
 
 </html>
