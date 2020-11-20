@@ -4,6 +4,7 @@ document.getElementById('arButton').style.display = "none";
 if (isAndroid) {
 	document.getElementById('arButton').style.display = "block";
 } else {
+	document.getElementById('arButton').style.display = "none";
 	document.getElementById('model-viewer').style.display = "block";
 	document.getElementById('ar').style.display = "none";
 
