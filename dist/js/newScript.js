@@ -201,7 +201,7 @@ function LoadFbx() {
         }
       });
       bulbObj = object;
-      console.log(bulbObj.scale.multiplyScalar(0.09))
+      console.log(bulbObj.scale.multiplyScalar(0.05))
       scene.add(object);
       bulbObj.visible = false;
       if (object)
