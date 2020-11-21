@@ -32,6 +32,7 @@ let hitTestSourceRequested = false;
 
 init();
 animate();
+LoadFbx();
 animatee();
 
 
@@ -121,12 +122,7 @@ function init() {
     //sphere.material.needsUpdate = true;
     renderer.render(scene, camera);
   }
-  var mixer;
-function PlayAnimation() {
-	mixer = new THREE.AnimationMixer(bulbObj);
-	mixer.clipAction(bulbObj.animations[0]).play();
-	mixer.timeScale = 1;
-}
+
 function StopAnimation() {
 	if (mixer != null) {
 		mixer.stopAllAction();
@@ -141,29 +137,6 @@ animate = function animate() {
 	renderer.render(scene, camera);
 	requestAnimationFrame(animate);
 };
-  function LoadFbx() {
-    let file;
-    // result ? file = 'Bulb_Verified_Options' : file = 'Not Verified_Bulb_Options';
-    new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
-      texture.encoding = THREE.RGBEEncoding;
-      texture.flipY = true;
-      texture.mapping = THREE.EquirectangularReflectionMapping;
-      var loader = new THREE.FBXLoader();
-      loader.load('../Glo_Blub_Changes_New Update_2/Bulb_Verified_Options.FBX', function (object) {
-        console.log(object.position);
-        object.traverse(function (child) {
-          if (child.isMesh && child.name == "Bulb_Main") {
-            //console.log(child);
-            child.material.envMap = texture; // assign your diffuse texture here
-          }
-        });
-        bulbObj = object;
-        scene.add(object);
-        if (object)
-          PlayAnimation()
-      });
-    });
-  }
   //
 
   const geometry2 = new THREE.CylinderBufferGeometry(0.1, 0.1, 0.2, 32).translate(0, 0.1, 0);
@@ -177,9 +150,8 @@ animate = function animate() {
       // mesh.position.setFromMatrixPosition(reticle.matrix);
       // mesh.scale.y = Math.random() * 2 + 1;
       // scene.add(mesh);
-      LoadFbx();
-      console.log(bulbObj);
-      // current_object.position.setFromMatrixPosition(reticle.matrix);
+      
+      bulbObj.position.setFromMatrixPosition(reticle.matrix);
     }
 
   }
@@ -212,7 +184,34 @@ function onWindowResize() {
 }
 
 //
-
+function LoadFbx() {
+  let file;
+  // result ? file = 'Bulb_Verified_Options' : file = 'Not Verified_Bulb_Options';
+  new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
+    texture.encoding = THREE.RGBEEncoding;
+    texture.flipY = true;
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    var loader = new THREE.FBXLoader();
+    loader.load('../Glo_Blub_Changes_New Update_2/Bulb_Verified_Options.FBX', function (object) {
+      object.traverse(function (child) {
+        if (child.isMesh && child.name == "Bulb_Main") {
+          //console.log(child);
+          child.material.envMap = texture; // assign your diffuse texture here
+        }
+      });
+      bulbObj = object;
+      scene.add(object);
+      if (object)
+        PlayAnimation()
+    });
+  });
+}
+var mixer;
+function PlayAnimation() {
+	mixer = new THREE.AnimationMixer(bulbObj);
+	mixer.clipAction(bulbObj.animations[0]).play();
+	mixer.timeScale = 1;
+}
 function animatee() {
 
   renderer.setAnimationLoop(render);
