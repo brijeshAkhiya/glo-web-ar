@@ -152,6 +152,7 @@ animate = function animate() {
       // scene.add(mesh);
       
       bulbObj.position.setFromMatrixPosition(reticle.matrix);
+      bulbObj.visible = true;
     }
 
   }
@@ -200,7 +201,9 @@ function LoadFbx() {
         }
       });
       bulbObj = object;
+      console.log(bulbObj.scale.multiplyScalar(0.09))
       scene.add(object);
+      bulbObj.visible = false;
       if (object)
         PlayAnimation()
     });
