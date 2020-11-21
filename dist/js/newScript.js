@@ -18,7 +18,7 @@ let hitTestSourceRequested = false;
 setInterval(() => {
   onSelect();
   console.log('y');
-}, 5000)
+}, 7000)
 init();
 animate();
 LoadFbx();
