@@ -45,8 +45,6 @@ let video;
 function init(result) {
 	scene = new THREE.Scene();
 	CameraControls.install({ THREE: THREE });
-	container = document.getElementById('bulb');
-	video = document.getElementById('video');
 	camera = new THREE.PerspectiveCamera(54, window.innerWidth / window.innerHeight, 0.3, 1000);
 	camera.position.set(0, 0, 70);
 	renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -185,13 +183,13 @@ function renderr() {
 var bulbObj = "";
 function LoadFbx(result) {
 	let file;
-	result ? file = 'Bulb_Verified_Options' : file = 'Not Verified_Bulb_Options';
+	// result ? file = 'Bulb_Verified_Options' : file = 'Not Verified_Bulb_Options';
 	new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
 		texture.encoding = THREE.RGBEEncoding;
 		texture.flipY = true;
 		texture.mapping = THREE.EquirectangularReflectionMapping;
 		var loader = new THREE.FBXLoader();
-		loader.load('./bulb/'+ file + '.FBX', function (object) {
+		loader.load('../Glo_Blub_Changes_New Update_2/Bulb_Verified_Options.FBX', function (object) {
 			console.log(object);
 			object.traverse(function (child) {
 				if (child.isMesh && child.name == "Bulb_Main") {
