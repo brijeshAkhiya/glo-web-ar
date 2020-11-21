@@ -11,14 +11,12 @@ var bulbObj, animate
 const clock = new THREE.Clock();
 var sphere;
 let reticle;
-let count = 0;
-let count1 = 0;
 let hitTestSource = null;
 let hitTestSourceRequested = false;
 setInterval(() => {
   onSelect();
   console.log('y');
-}, 7000)
+}, 5000)
 init();
 animate();
 LoadFbx();
@@ -171,7 +169,7 @@ var blinkCount = 0;
 function onSelect() {
 
   if (reticle.visible) {
-    if (!bulbObj.visible) {
+    if (bulbObj && !bulbObj.visible) {
       bulbObj.position.setFromMatrixPosition(reticle.matrix);
       bulbObj.visible = true;
       PlayAnimation();
