@@ -289,7 +289,7 @@ function render(timestamp, frame) {
 
       if (hitTestResults.length) {
         const hit = hitTestResults[0];
-        if (bulbObj.visible) {
+        if (bulbObj && bulbObj.visible) {
           reticle.visible = false;
         } else {
           reticle.visible = true;
