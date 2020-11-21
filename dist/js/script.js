@@ -42,7 +42,7 @@ var MAP_HEIGHT = 14800;
 var northWest, northEast;
 var sphere, stats;
 let video;
-function init(result) {
+function init() {
 	scene = new THREE.Scene();
 	CameraControls.install({ THREE: THREE });
 	camera = new THREE.PerspectiveCamera(54, window.innerWidth / window.innerHeight, 0.3, 1000);
@@ -52,7 +52,7 @@ function init(result) {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.shadowMap.enabled = true;
 	renderer.setClearAlpha(0.0);
-	container.appendChild(renderer.domElement);
+	document.body.appendChild(renderer.domElement);
 
 	// document.body.appendChild(renderer.domElement);
 
@@ -61,7 +61,7 @@ function init(result) {
 	cameraControls.dollyToCursor = true;
 	cameraControls.maxPolarAngle = 1.24;
 
-	var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+	// var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
 	//scene.add( ambientLight );
 	//document.addEventListener("click", onMouseOrTouch, false);
 	//window.addEventListener("resize", ChangeCanvasSize , false);
@@ -110,7 +110,7 @@ function init(result) {
 	var ambientLight = new THREE.AmbientLight(0xffffff, 1);
 	scene.add(ambientLight);
 
-	LoadFbx(result);
+	LoadFbx();
 
 
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -181,7 +181,7 @@ function renderr() {
 	renderer.render(scene, camera);
 }
 var bulbObj = "";
-function LoadFbx(result) {
+function LoadFbx() {
 	let file;
 	// result ? file = 'Bulb_Verified_Options' : file = 'Not Verified_Bulb_Options';
 	new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
@@ -238,8 +238,8 @@ function onWindowResize() {
 
 }
 
-function start(result) {
-	init(result);
+function start() {
+	init();
 	//loadObject();
 	animate();
 }
