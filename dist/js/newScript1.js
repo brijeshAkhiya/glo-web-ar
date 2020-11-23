@@ -131,10 +131,20 @@ function init() {
     if (count === 20) {
       if (pointLight.intensity == 0) {
         blinkCount++;
-        pointLight.intensity = 6;
-        if (blinkCount == 3) {
-          pointLight.intensity = 12;
-          PlayAnimation();
+        switch (blinkCount) {
+          case 1:
+            pointLight.intensity = 1;
+            break;
+          case 2: 
+            pointLight.intensity = 3;
+            break;
+          case 3:
+            pointLight.intensity = 12;
+            PlayAnimation();
+            break;
+        }
+        if (blinkCount > 3) {
+          pointLight.intensity = 3;
         }
         count = 0;
       } else {
