@@ -118,24 +118,34 @@ function init() {
     }
   }
 var blinkCount = 0;
+var count = 0;
   animate = function () {
     const delta = clock.getDelta();
 	const hasControlsUpdated = cameraControls.update( delta );
 	if (mixer != null) {
 		mixer.update(delta);
 	};
-	
-		if(pointLight.intensity == 0){
-			blinkCount++;
-			pointLight.intensity = 6;
-			if(blinkCount == 5){
-				console.log("------count 5 times---------");
-				pointLight.intensity = 0;
-			}
-		}
-		else{
-			pointLight.intensity = 0;
-		}
+	count ++;
+  if (count === 15) {
+    
+    if (pointLight.intensity == 0) {
+      blinkCount++;
+      pointLight.intensity = 6;
+      if (blinkCount == 5) {
+        console.log('x');
+        // if (bulbObj.visible) {
+        //   console.log('x');
+        //   PlayAnimation();
+        // }
+        console.log("------count 5 times---------");
+        pointLight.intensity = 0;
+      }
+      count = 0;
+    } else {
+      pointLight.intensity = 0;
+      count = 10;
+    }
+  }
 	renderer.render( scene, camera );
 	requestAnimationFrame( animate );
   };

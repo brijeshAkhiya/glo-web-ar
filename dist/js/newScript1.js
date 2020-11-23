@@ -117,33 +117,47 @@ function init() {
       mixer.stopAllAction();
     }
   }
-var blinkCount = 0;
+  var count = 0;
+  var blinkCount = 0;
   animate = function () {
     const delta = clock.getDelta();
-	const hasControlsUpdated = cameraControls.update( delta );
-	if (mixer != null) {
-		mixer.update(delta);
-	};
-	
-		if(pointLight.intensity == 0){
-			blinkCount++;
-			pointLight.intensity = 6;
-			if(blinkCount == 5){
-				console.log("------count 5 times---------");
-				pointLight.intensity = 0;
-			}
-		}
-		else{
-			pointLight.intensity = 0;
-		}
-	renderer.render( scene, camera );
-	requestAnimationFrame( animate );
+    const hasControlsUpdated = cameraControls.update(delta);
+    if (mixer != null) {
+      mixer.update(delta);
+    };
+    if (reticle.visible && bulbObj && bulbObj.visible) {
+      console.log('now bvosokldfas')
+      console.log(bulbObj.animations)
+    }
+    if (count === 20) {
+      if (pointLight.intensity == 0) {
+        blinkCount++;
+        count ++;
+        pointLight.intensity = 6;
+        if (blinkCount == 5) {
+          console.log('x');
+          // if (bulbObj.visible) {
+          //   console.log('x');
+          //   PlayAnimation();
+          // }
+          console.log("------count 5 times---------");
+          pointLight.intensity = 0;
+        }
+        count = 0;
+      } else {
+        pointLight.intensity = 0;
+        count = 15;
+      }
+    }
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
   };
   //
 
   const geometry2 = new THREE.CylinderBufferGeometry(0.1, 0.1, 0.2, 32).translate(0, 0.1, 0);
 
-  
+
 
   controller = renderer.xr.getController(0);
   controller.addEventListener('select', onSelect);
@@ -168,7 +182,6 @@ function onSelect() {
     if (bulbObj && !bulbObj.visible) {
       bulbObj.position.setFromMatrixPosition(reticle.matrix);
       bulbObj.visible = true;
-      PlayAnimation();
     }
     // const material = new THREE.MeshPhongMaterial({ color: 0xffffff * Math.random() });
     // const mesh = new THREE.Mesh(geometry2, material);
@@ -231,9 +244,17 @@ function LoadFbx() {
       console.log(bulbObj.scale.multiplyScalar(0.025))
       scene.add(object);
       // if (object.children[2].name === 'Dummy_Verified') {
-				console.log(object.children[132].children[0].position);
-				object.children[132].children[0].position.z = -8;
-			// }
+        // 220,20,60
+        console.log(object.children)
+      object.children[0].children.forEach((ele) => {
+        // ele.material.color = color.red;
+        // ele.material.color.g = 20;
+        // ele.material.color.b = 60;
+        console.log(ele.material.color)
+        console.log(ele)
+      });
+      object.children[132].children[0].position.z = -8;
+      // }
       bulbObj.visible = false;
     });
   });
@@ -242,9 +263,10 @@ var mixer;
 function PlayAnimation() {
   mixer = new THREE.AnimationMixer(bulbObj);
   var aniAction = mixer.clipAction(bulbObj.animations[0]).play();
-	aniAction.setLoop( THREE.LoopOnce );
-	aniAction.clampWhenFinished = true
-	mixer.timeScale = 1;
+  console.log(bulbObj.animations)
+  aniAction.setLoop(THREE.LoopOnce);
+  aniAction.clampWhenFinished = true
+  mixer.timeScale = 1;
 }
 function animatee() {
 
@@ -293,9 +315,10 @@ function render(timestamp, frame) {
         } else {
           reticle.visible = true;
           reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
+          PlayAnimation();
         }
-        
-        
+
+
       } else {
         reticle.visible = false;
       }
