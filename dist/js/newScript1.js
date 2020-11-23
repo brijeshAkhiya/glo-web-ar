@@ -11,7 +11,7 @@ let reticle;
 let hitTestSource = null;
 let hitTestSourceRequested = false;
 var count = 0;
-  var blinkCount = 0;
+var blinkCount = 0;
 setInterval(() => {
   onSelect();
 }, 5000)
@@ -119,7 +119,7 @@ function init() {
       mixer.stopAllAction();
     }
   }
-  
+
   animate = function () {
     const delta = clock.getDelta();
     const hasControlsUpdated = cameraControls.update(delta);
@@ -133,18 +133,23 @@ function init() {
         blinkCount++;
         switch (blinkCount) {
           case 1:
-            pointLight.intensity = 1;
-            break;
-          case 2: 
             pointLight.intensity = 3;
+            break;
+          case 2:
+            pointLight.intensity = 6;
             break;
           case 3:
             pointLight.intensity = 12;
+            bulbObj.children[13].material.color.r = 251
+            bulbObj.children[13].material.color.g = 243
+            bulbObj.children[13].material.color.b = 108
+            bulbObj.children[13].material.opacity = 1;
             PlayAnimation();
             break;
         }
         if (blinkCount > 3) {
-          pointLight.intensity = 3;
+          pointLight.intensity = 6;
+
         }
         count = 0;
       } else {
@@ -218,6 +223,7 @@ function LoadFbx() {
       bulbObj.scale.multiplyScalar(0.025);
       object.children[132].children[0].position.z = -8;
       scene.add(object);
+
       bulbObj.visible = false;
     });
   });
