@@ -132,7 +132,6 @@ function init() {
       if (pointLight.intensity == 0) {
         blinkCount++;
         pointLight.intensity = 6;
-
         if (blinkCount == 3) {
           pointLight.intensity = 12;
           PlayAnimation();
@@ -140,7 +139,7 @@ function init() {
         count = 0;
       } else {
         pointLight.intensity = 0;
-        count = 15;
+        count = 0;
       }
     }
 
