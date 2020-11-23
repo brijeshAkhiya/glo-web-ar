@@ -230,10 +230,10 @@ function LoadFbx() {
       bulbObj = object;
       console.log(bulbObj.scale.multiplyScalar(0.025))
       scene.add(object);
-      if (object.children[2].name === 'Dummy_Verified') {
-				console.log(object.children[2].children[0].position);
-				object.children[2].children[0].position.z = -8;
-			}
+      // if (object.children[2].name === 'Dummy_Verified') {
+				console.log(object.children[132].children[0].position);
+				object.children[132].children[0].position.z = -8;
+			// }
       bulbObj.visible = false;
     });
   });
