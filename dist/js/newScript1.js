@@ -229,6 +229,7 @@ function LoadFbx() {
 
       bulbObj = object;
       console.log(bulbObj.scale.multiplyScalar(0.025))
+      console.log(bulbObj.scale.multiplyScalar(0.025))
       scene.add(object);
       if (object.children[2].name === 'Dummy_Verified') {
 				console.log(object.children[2].children[0].position);
