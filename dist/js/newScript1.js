@@ -6,10 +6,12 @@ let controller;
 var cameraControls;
 var bulbObj, animate
 const clock = new THREE.Clock();
-var sphere;
+var sphere, drops;
 let reticle;
 let hitTestSource = null;
 let hitTestSourceRequested = false;
+var count = 0;
+  var blinkCount = 0;
 setInterval(() => {
   onSelect();
 }, 5000)
@@ -117,31 +119,23 @@ function init() {
       mixer.stopAllAction();
     }
   }
-  var count = 0;
-  var blinkCount = 0;
+  
   animate = function () {
     const delta = clock.getDelta();
     const hasControlsUpdated = cameraControls.update(delta);
     if (mixer != null) {
       mixer.update(delta);
     };
-    if (reticle.visible && bulbObj && bulbObj.visible) {
-      console.log('now bvosokldfas')
-      console.log(bulbObj.animations)
-    }
+    if (bulbObj && bulbObj.visible)
+      count++;
     if (count === 20) {
       if (pointLight.intensity == 0) {
         blinkCount++;
-        count ++;
         pointLight.intensity = 6;
-        if (blinkCount == 5) {
-          console.log('x');
-          // if (bulbObj.visible) {
-          //   console.log('x');
-          //   PlayAnimation();
-          // }
-          console.log("------count 5 times---------");
-          pointLight.intensity = 0;
+
+        if (blinkCount == 3) {
+          pointLight.intensity = 12;
+          PlayAnimation();
         }
         count = 0;
       } else {
@@ -183,11 +177,6 @@ function onSelect() {
       bulbObj.position.setFromMatrixPosition(reticle.matrix);
       bulbObj.visible = true;
     }
-    // const material = new THREE.MeshPhongMaterial({ color: 0xffffff * Math.random() });
-    // const mesh = new THREE.Mesh(geometry2, material);
-    // mesh.position.setFromMatrixPosition(reticle.matrix);
-    // mesh.scale.y = Math.random() * 2 + 1;
-    // scene.add(mesh);
   }
 
 }
@@ -204,57 +193,22 @@ function onWindowResize() {
 //
 function LoadFbx() {
   let file;
-  // result ? file = 'Bulb_Verified_Options' : file = 'Not Verified_Bulb_Options';
-  // new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
-  //   texture.encoding = THREE.RGBEEncoding;
-  //   texture.flipY = true;
-  //   texture.mapping = THREE.EquirectangularReflectionMapping;
-  //   var loader = new THREE.FBXLoader();
-  //   loader.load('../Glo_Blub_Changes_New Update_2/Bulb_Verified_Options.FBX', function (object) {
-  //     object.traverse(function (child) {
-  //       if (child.isMesh && child.name == "Bulb_Main") {
-  //         //console.log(child);
-  //         child.material.envMap = texture; // assign your diffuse texture here
-  //       }
-  //     });
-  //   bulbObj = object;
-  //   console.log(bulbObj.scale.multiplyScalar(0.05))
-  //   scene.add(object);
-  //   bulbObj.visible = false;
-  //   if (object)
-  //     PlayAnimation()
-  // });
-  // });
   new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
     texture.encoding = THREE.RGBEEncoding;
     texture.flipY = true;
     texture.mapping = THREE.EquirectangularReflectionMapping;
-    //console.log("texture",texture);
     var loader = new THREE.FBXLoader();
     loader.load('../bulb/Not Verified_Bulb_Options.FBX', function (object) {
-      //console.log(object);
       object.traverse(function (child) {
         if (child.isMesh && child.name == "Bulb_Main") {
-          //console.log(child);
           child.material.envMap = texture; // assign your diffuse texture here
         }
       });
 
       bulbObj = object;
-      console.log(bulbObj.scale.multiplyScalar(0.025))
-      scene.add(object);
-      // if (object.children[2].name === 'Dummy_Verified') {
-        // 220,20,60
-        console.log(object.children)
-      object.children[0].children.forEach((ele) => {
-        // ele.material.color = color.red;
-        // ele.material.color.g = 20;
-        // ele.material.color.b = 60;
-        console.log(ele.material.color)
-        console.log(ele)
-      });
+      bulbObj.scale.multiplyScalar(0.025);
       object.children[132].children[0].position.z = -8;
-      // }
+      scene.add(object);
       bulbObj.visible = false;
     });
   });
@@ -315,7 +269,6 @@ function render(timestamp, frame) {
         } else {
           reticle.visible = true;
           reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
-          PlayAnimation();
         }
 
 
