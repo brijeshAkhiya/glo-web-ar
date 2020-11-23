@@ -129,33 +129,29 @@ function init() {
     if (bulbObj && bulbObj.visible)
       count++;
     if (count === 20) {
-      if (pointLight.intensity == 0) {
-        blinkCount++;
-        switch (blinkCount) {
-          case 1:
-            pointLight.intensity = 3;
-            break;
-          case 2:
-            pointLight.intensity = 6;
-            break;
-          case 3:
-            pointLight.intensity = 12;
+      blinkCount++;
+      switch (blinkCount) {
+        case 1:
+          pointLight.intensity = 3;
+          break;
+        case 2:
+          pointLight.intensity = 6;
+          break;
+        case 3:
+          pointLight.intensity = 12;
+          setTimeout(() => {
             bulbObj.children[13].material.color.r = 251
             bulbObj.children[13].material.color.g = 243
             bulbObj.children[13].material.color.b = 108
             bulbObj.children[13].material.opacity = 1;
             PlayAnimation();
-            break;
-        }
-        if (blinkCount > 3) {
-          pointLight.intensity = 6;
-
-        }
-        count = 0;
-      } else {
-        pointLight.intensity = 0;
-        count = 0;
+          }, 500);
+          break;
       }
+      if (blinkCount > 3) {
+        pointLight.intensity = 0;
+      }
+      count = 0;
     }
 
     renderer.render(scene, camera);
