@@ -218,7 +218,7 @@ function LoadFbx() {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     //console.log("texture",texture);
     var loader = new THREE.FBXLoader();
-    loader.load('../bulb/Bulb_Verified_Options.FBX', function (object) {
+    loader.load('../bulb/Not Verified_Bulb_Options.FBX', function (object) {
       //console.log(object);
       object.traverse(function (child) {
         if (child.isMesh && child.name == "Bulb_Main") {
