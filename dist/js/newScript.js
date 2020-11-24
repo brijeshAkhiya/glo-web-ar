@@ -150,10 +150,10 @@ function init() {
         case 3:
           pointLight.intensity = 6;
           break;
-        // case 4:
-        //   pointLight.intensity = 0;
-        //   break;
         case 4:
+          pointLight.intensity = 0;
+          break;
+        case 5:
           pointLight.intensity = 12;
           bulbObj.children[13].material.color.r = 251
           bulbObj.children[13].material.color.g = 243
