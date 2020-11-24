@@ -228,7 +228,7 @@ function LoadFbx() {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     //console.log("texture",texture);
     var loader = new THREE.FBXLoader();
-    loader.load('../bulb/Bulb_Verified_Options.FBX', function (object) {
+    loader.load('../GloBulb/Not Verified_Bulb_Option.FBX', function (object) {
       //console.log(object);
       object.traverse(function (child) {
         if (child.isMesh && child.name == "Bulb_Main") {
@@ -238,12 +238,12 @@ function LoadFbx() {
       });
 
       bulbObj = object;
-      console.log(bulbObj.scale.multiplyScalar(0.025))
+      bulbObj.scale.multiplyScalar(0.025)
       scene.add(object);
-      if (object.children[2].name === 'Dummy_Verified') {
-				console.log(object.children[2].children[0].position);
-				object.children[2].children[0].position.z = -8;
-			}
+      // if (object.children[2].name === 'Dummy_Verified') {
+				object.children[160].children[0].position.z = -8
+				// object.children[2].children[0].position.z = -8;
+			// }
       bulbObj.visible = false;
     });
   });
@@ -252,7 +252,8 @@ var mixer;
 function PlayAnimation() {
   mixer = new THREE.AnimationMixer(bulbObj);
   var aniAction = mixer.clipAction(bulbObj.animations[0]).play();
-	aniAction.setLoop( THREE.LoopOnce );
+  console.log(bulbObj.animations)
+	aniAction.setLoop( THREE.Forever );
 	aniAction.clampWhenFinished = true
 	mixer.timeScale = 1;
 }
