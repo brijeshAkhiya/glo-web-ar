@@ -4,7 +4,7 @@ let container;
 let camera, scene, renderer;
 let controller;
 var cameraControls;
-var bulbObj, animate
+var bulbObj, animate, verifiedText, gloLogo;
 const clock = new THREE.Clock();
 var sphere;
 let reticle;
@@ -122,6 +122,9 @@ var count = 0;
   animate = function () {
     const delta = clock.getDelta();
 	const hasControlsUpdated = cameraControls.update( delta );
+	if (mixer1 != null) {
+		mixer1.update(delta);
+	};
 	if (mixer != null) {
 		mixer.update(delta);
 	};
@@ -133,10 +136,6 @@ var count = 0;
       pointLight.intensity = 6;
       if (blinkCount == 5) {
         console.log('x');
-        // if (bulbObj.visible) {
-        //   console.log('x');
-        //   PlayAnimation();
-        // }
         console.log("------count 5 times---------");
         pointLight.intensity = 0;
       }
@@ -180,11 +179,16 @@ function onSelect() {
       bulbObj.visible = true;
       PlayAnimation();
     }
-    // const material = new THREE.MeshPhongMaterial({ color: 0xffffff * Math.random() });
-    // const mesh = new THREE.Mesh(geometry2, material);
-    // mesh.position.setFromMatrixPosition(reticle.matrix);
-    // mesh.scale.y = Math.random() * 2 + 1;
-    // scene.add(mesh);
+    if (verifiedText && !verifiedText.visible) {
+      verifiedText.position.setFromMatrixPosition(reticle.matrix);
+      setTimeout(() => {
+        verifiedText.visible = true;
+      }, 7000)
+    }
+    if (gloLogo && !gloLogo.visible) {
+      gloLogo.position.setFromMatrixPosition(reticle.matrix);
+      gloLogo.visible = true;
+    }
   }
 
 }
@@ -200,62 +204,92 @@ function onWindowResize() {
 
 //
 function LoadFbx() {
-  let file;
-  // result ? file = 'Bulb_Verified_Options' : file = 'Not Verified_Bulb_Options';
-  // new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
-  //   texture.encoding = THREE.RGBEEncoding;
-  //   texture.flipY = true;
-  //   texture.mapping = THREE.EquirectangularReflectionMapping;
-  //   var loader = new THREE.FBXLoader();
-  //   loader.load('../Glo_Blub_Changes_New Update_2/Bulb_Verified_Options.FBX', function (object) {
-  //     object.traverse(function (child) {
-  //       if (child.isMesh && child.name == "Bulb_Main") {
-  //         //console.log(child);
-  //         child.material.envMap = texture; // assign your diffuse texture here
-  //       }
-  //     });
-  //   bulbObj = object;
-  //   console.log(bulbObj.scale.multiplyScalar(0.05))
-  //   scene.add(object);
-  //   bulbObj.visible = false;
-  //   if (object)
-  //     PlayAnimation()
-  // });
-  // });
   new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
     texture.encoding = THREE.RGBEEncoding;
     texture.flipY = true;
     texture.mapping = THREE.EquirectangularReflectionMapping;
-    //console.log("texture",texture);
     var loader = new THREE.FBXLoader();
-    loader.load('../GloBulb/Not Verified_Bulb_Option.FBX', function (object) {
-      //console.log(object);
+    loader.load('./GloBulb/Not Verified_Bulb_Option.FBX', function (object) {
       object.traverse(function (child) {
         if (child.isMesh && child.name == "Bulb_Main") {
-          //console.log(child);
+          child.material.envMap = texture; // assign your diffuse texture here
+        }
+      });
+      bulbObj = object;
+      bulbObj.scale.multiplyScalar(0.025)
+      scene.add(object);
+      console.log(object)
+      if (object) {
+        // PlayAnimation();
+      }
+      // rgb(246, 243, 220)
+        object.children[160].children[0].visible = false
+        object.children[29].visible = false;
+        object.children[0].material.color.r = 1;
+        object.children[0].material.color.g = 1;
+        object.children[0].material.color.b = 1;
+        bulbObj.visible = false;
+    })
+  });
+  new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
+    texture.encoding = THREE.RGBEEncoding;
+    texture.flipY = true;
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    var loader = new THREE.FBXLoader();
+    loader.load('./GloBulb/Text_Verified.FBX', function (object) {
+      object.traverse(function (child) {
+        if (child.isMesh && child.name == "Bulb_Main") {
           child.material.envMap = texture; // assign your diffuse texture here
         }
       });
 
-      bulbObj = object;
-      bulbObj.scale.multiplyScalar(0.025)
+      verifiedText = object;
+      verifiedText.scale.multiplyScalar(0.025)
       scene.add(object);
-      // if (object.children[2].name === 'Dummy_Verified') {
-				object.children[160].children[0].position.z = -8
-				// object.children[2].children[0].position.z = -8;
-			// }
-      bulbObj.visible = false;
+      if (object) {
+        // PlayAnimation();
+        object.children[0].position.z = 7
+      }
+        verifiedText.visible = false;
+    });
+  });
+  new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
+    texture.encoding = THREE.RGBEEncoding;
+    texture.flipY = true;
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    var loader = new THREE.FBXLoader();
+    loader.load('./GloBulb/glo_Logo.FBX', function (object) {
+      object.traverse(function (child) {
+        if (child.isMesh && child.name == "Bulb_Main") {
+          child.material.envMap = texture; // assign your diffuse texture here
+        }
+      });
+
+      gloLogo = object;
+      gloLogo.scale.multiplyScalar(0.025)
+      scene.add(object);
+      console.log(object);
+      if (object) {
+        // PlayAnimation();
+      }
+        gloLogo.visible = false;
     });
   });
 }
 var mixer;
+var mixer1;
 function PlayAnimation() {
   mixer = new THREE.AnimationMixer(bulbObj);
-  var aniAction = mixer.clipAction(bulbObj.animations[0]).play();
-  console.log(bulbObj.animations)
-	aniAction.setLoop( THREE.Forever );
-	aniAction.clampWhenFinished = true
+  mixer1 = new THREE.AnimationMixer(verifiedText);
+  var bulb = mixer.clipAction(bulbObj.animations[0]).play();
+  var verifiedTextAni = mixer1.clipAction(verifiedText.animations[0]).play();
+  console.log(verifiedText.animations[0]);
+	bulb.setLoop( THREE.LoopOnce );
+	verifiedTextAni.setLoop( THREE.Forever );
+	bulb.clampWhenFinished = true
+	verifiedTextAni.clampWhenFinished = true
 	mixer.timeScale = 1;
+	mixer1.timeScale = 1;
 }
 function animatee() {
 
