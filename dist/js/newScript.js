@@ -4,7 +4,7 @@ let container;
 let camera, scene, renderer;
 let controller;
 var cameraControls;
-var bulbObj, animate, verifiedText, gloLogo;
+var bulbObj, animate, verifiedText, gloLogoObj, drops;
 const clock = new THREE.Clock();
 var sphere;
 let reticle;
@@ -75,6 +75,7 @@ function init() {
 
   var pointLight = new THREE.PointLight(0xffff4c, 5, 30);
   pointLight.position.set(0, 20, 3);
+  pointLight.intensity = 0;
   scene.add(pointLight);
 
   var ambientLight = new THREE.AmbientLight(0xffffff, 1);
@@ -117,42 +118,63 @@ function init() {
       mixer.stopAllAction();
     }
   }
-var blinkCount = 0;
-var count = 0;
+  var blinkCount = 0;
+  var count = 0;
   animate = function () {
     const delta = clock.getDelta();
-	const hasControlsUpdated = cameraControls.update( delta );
-	if (mixer1 != null) {
-		mixer1.update(delta);
-	};
-	if (mixer != null) {
-		mixer.update(delta);
-	};
-	count ++;
-  if (count === 15) {
-    
-    if (pointLight.intensity == 0) {
-      blinkCount++;
-      pointLight.intensity = 6;
-      if (blinkCount == 5) {
-        console.log('x');
-        console.log("------count 5 times---------");
+    const hasControlsUpdated = cameraControls.update(delta);
+    if (vTextAni != null) {
+      vTextAni.update(delta);
+    };
+    if (gloLogoani != null) {
+      gloLogoani.update(delta);
+    };
+    if (dropsAni != null) {
+      dropsAni.update(delta);
+    };
+    if (mixer != null) {
+      mixer.update(delta);
+    };
+    if (bulbObj && bulbObj.visible)
+      count++;
+    if (count === 25) {
+      if (bulbObj && bulbObj.visible) {
+        blinkCount++;
+      switch (blinkCount) {
+        case 1:
+          pointLight.intensity = 3;
+          break;
+        case 2:
+          pointLight.intensity = 0;
+          break;
+        case 3:
+          pointLight.intensity = 6;
+          break;
+        // case 4:
+        //   pointLight.intensity = 0;
+        //   break;
+        case 4:
+          pointLight.intensity = 12;
+          bulbObj.children[13].material.color.r = 251
+          bulbObj.children[13].material.color.g = 243
+          bulbObj.children[13].material.color.b = 108
+          bulbObj.children[13].material.opacity = 0.8;
+          break;
+      }
+      }
+      if (blinkCount > 5) {
         pointLight.intensity = 0;
       }
-      count = 0;
-    } else {
-      pointLight.intensity = 0;
-      count = 10;
-    }
-  }
-	renderer.render( scene, camera );
-	requestAnimationFrame( animate );
+      count = 1;
+    } 
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
   };
   //
 
   const geometry2 = new THREE.CylinderBufferGeometry(0.1, 0.1, 0.2, 32).translate(0, 0.1, 0);
 
-  
+
 
   controller = renderer.xr.getController(0);
   controller.addEventListener('select', onSelect);
@@ -179,15 +201,21 @@ function onSelect() {
       bulbObj.visible = true;
       PlayAnimation();
     }
-    if (verifiedText && !verifiedText.visible) {
+    if (verifiedText && !verifiedText.visible && bulbObj.visible) {
       verifiedText.position.setFromMatrixPosition(reticle.matrix);
       setTimeout(() => {
         verifiedText.visible = true;
       }, 7000)
     }
-    if (gloLogo && !gloLogo.visible) {
-      gloLogo.position.setFromMatrixPosition(reticle.matrix);
-      gloLogo.visible = true;
+    if (gloLogoObj && !gloLogoObj.visible && bulbObj.visible) {
+      gloLogoObj.position.setFromMatrixPosition(reticle.matrix);
+      gloLogoObj.visible = true;
+    }
+    if (drops && !drops.visible && bulbObj.visible) {
+      drops.position.setFromMatrixPosition(reticle.matrix);
+      setTimeout(() => {
+        drops.visible = true;
+      }, 7000);
     }
   }
 
@@ -216,19 +244,17 @@ function LoadFbx() {
         }
       });
       bulbObj = object;
-      bulbObj.scale.multiplyScalar(0.025)
+      bulbObj.scale.multiplyScalar(0.025);
       scene.add(object);
-      console.log(object)
       if (object) {
         // PlayAnimation();
       }
-      // rgb(246, 243, 220)
-        object.children[160].children[0].visible = false
-        object.children[29].visible = false;
-        object.children[0].material.color.r = 1;
-        object.children[0].material.color.g = 1;
-        object.children[0].material.color.b = 1;
-        bulbObj.visible = false;
+      object.children[160].children[0].visible = false
+      object.children[29].visible = false;
+      object.children[0].material.color.r = 1;
+      object.children[0].material.color.g = 1;
+      object.children[0].material.color.b = 0;
+      bulbObj.visible = false;
     })
   });
   new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
@@ -244,13 +270,13 @@ function LoadFbx() {
       });
 
       verifiedText = object;
-      verifiedText.scale.multiplyScalar(0.025)
+      verifiedText.scale.multiplyScalar(0.025);
       scene.add(object);
       if (object) {
         // PlayAnimation();
         object.children[0].position.z = 7
       }
-        verifiedText.visible = false;
+      verifiedText.visible = false;
     });
   });
   new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
@@ -258,38 +284,77 @@ function LoadFbx() {
     texture.flipY = true;
     texture.mapping = THREE.EquirectangularReflectionMapping;
     var loader = new THREE.FBXLoader();
-    loader.load('./GloBulb/glo_Logo.FBX', function (object) {
+    loader.load('../GloBulb/gloLogo.FBX', function (object) {
       object.traverse(function (child) {
         if (child.isMesh && child.name == "Bulb_Main") {
           child.material.envMap = texture; // assign your diffuse texture here
         }
       });
 
-      gloLogo = object;
-      gloLogo.scale.multiplyScalar(0.025)
+      gloLogoObj = object;
       scene.add(object);
+
+      if (object) {
+        object.children[1].children[1].material.opacity = 0.2;
+        // PlayAnimation();
+      }
+      gloLogoObj.visible = false;
       console.log(object);
+    });
+  });
+  new THREE.RGBELoader().load('./hdr/001_studioHDRI.hdr', function (texture) {
+    texture.encoding = THREE.RGBEEncoding;
+    texture.flipY = true;
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    var loader = new THREE.FBXLoader();
+    loader.load('../GloBulb/Drops.FBX', function (object) {
+      object.traverse(function (child) {
+        if (child.isMesh && child.name == "Bulb_Main") {
+          child.material.envMap = texture; // assign your diffuse texture here
+        }
+      });
+
+      drops = object;
+      scene.add(object);
       if (object) {
         // PlayAnimation();
       }
-        gloLogo.visible = false;
+      drops.visible = false;
+      console.log(object);
     });
   });
 }
 var mixer;
-var mixer1;
+var vTextAni;
+var gloLogoani;
+var dropsAni;
 function PlayAnimation() {
   mixer = new THREE.AnimationMixer(bulbObj);
-  mixer1 = new THREE.AnimationMixer(verifiedText);
+  vTextAni = new THREE.AnimationMixer(verifiedText);
+  gloLogoani = new THREE.AnimationMixer(gloLogoObj);
+  dropsAni = new THREE.AnimationMixer(drops);
   var bulb = mixer.clipAction(bulbObj.animations[0]).play();
-  var verifiedTextAni = mixer1.clipAction(verifiedText.animations[0]).play();
-  console.log(verifiedText.animations[0]);
-	bulb.setLoop( THREE.LoopOnce );
-	verifiedTextAni.setLoop( THREE.Forever );
-	bulb.clampWhenFinished = true
-	verifiedTextAni.clampWhenFinished = true
-	mixer.timeScale = 1;
-	mixer1.timeScale = 1;
+  var verifiedTextAni = vTextAni.clipAction(verifiedText.animations[0]).play();
+  var dropsObjAni = dropsAni.clipAction(drops.animations[0]).play();
+  var gLogoAni = gloLogoani.clipAction(gloLogoObj.animations[0]);
+  bulb.setLoop(THREE.LoopOnce);
+  verifiedTextAni.setLoop(THREE.Forever);
+  dropsObjAni.setLoop(THREE.Forever);
+  if (bulbObj && bulbObj.visible) {
+    setTimeout(() => {
+      gLogoAni.play();
+    }, 7000);
+    gLogoAni.setLoop(THREE.Forever);
+  }
+
+  bulb.clampWhenFinished = true
+  verifiedTextAni.clampWhenFinished = true
+  gLogoAni.clampWhenFinished = true
+  dropsObjAni.clampWhenFinished = true
+  mixer.timeScale = 1;
+  vTextAni.timeScale = 1;
+  gloLogoani.timeScale = 1;
+  dropsAni.timeScale = 1;
 }
 function animatee() {
 
@@ -339,8 +404,8 @@ function render(timestamp, frame) {
           reticle.visible = true;
           reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
         }
-        
-        
+
+
       } else {
         reticle.visible = false;
       }
