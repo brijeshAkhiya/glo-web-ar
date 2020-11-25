@@ -27,7 +27,7 @@
     </style>
   </head>
   <body>
-    <model-viewer id="model-viewer" camera-controls autoplay ar shadow-intensity="1"
+    <model-viewer id="model-viewer" camera-controls ar shadow-intensity="1"
     src="./GloBulb/Not Verified_Bulb/Not Verified_Bulb.FBX.gltf"
       ios-src="./GloBulb/Not Verified_Bulb.FBX.usdz" alt="Bulb Verified">
       <button id="ar" slot="ar-button"
@@ -36,7 +36,6 @@
       </button>
     </model-viewer>
     <script>
-      document.querySelector("model-viewer").pause();
       document.querySelector('button').style.display = "none";
       document.querySelector("model-viewer").addEventListener('ar-status', (event) => {
         if (event.detail.status === 'failed') {
@@ -53,7 +52,7 @@
           document.querySelector('button').click();
           setTimeout(() => {
             document.querySelector("model-viewer").play();
-          }, 3000)
+          }, 3000);
         }
       });
     </script>
