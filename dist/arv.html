@@ -36,7 +36,7 @@
         Activate AR
       </button>
     </model-viewer>
-    <button id="ARButton" style="position: absolute; bottom: 20px; padding: 12px 6px; border: 1px solid rgb(255, 255, 255); border-radius: 4px; background: rgba(0, 0, 0, 0.1); color: rgb(255, 255, 255); font: 13px sans-serif; text-align: center; opacity: 0.5; outline: none; z-index: 999; cursor: pointer; left: calc(50% - 50px); width: 100px;"><a href="intent://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Start AR</a></button>
+    <button id="ARButton" style="position: absolute; bottom: 20px; padding: 12px 6px; border: 1px solid rgb(255, 255, 255); border-radius: 4px; background: rgba(0, 0, 0, 0.1); color: rgb(255, 255, 255); font: 13px sans-serif; text-align: center; opacity: 0.5; outline: none; z-index: 999; cursor: pointer; left: calc(50% - 50px); width: 100px;">Start AR</button>
     <script>
       document.querySelector('button').style.display = "none";
       document.querySelector("model-viewer").addEventListener('ar-status', (event) => {
@@ -49,9 +49,12 @@
           });
         }
       });
-      // document.getElementById('ARButton').addEventListener('click', () => {
-      //   document.getElementById('ar').click();
-      // });
+      document.getElementById('ARButton').addEventListener('click', () => {
+        setTimeout(() => {
+          document.getElementById('model-viewer').play();
+        }, 6000);
+        document.getElementById('ar').click();
+      });
       // document.querySelector('model-viewer').addEventListener('load', () => {
       //   if (document.querySelector('button')) {
           // document.querySelector('button').click();
