@@ -20,6 +20,7 @@ a:hover {
 button {
 	cursor: pointer;
 	text-transform: uppercase;
+	position: relative;
 }
 
 canvas {
