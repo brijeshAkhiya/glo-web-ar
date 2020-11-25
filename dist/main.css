@@ -82,3 +82,14 @@ a, button, input, select {
 	margin-top: 20px;
 	padding: 10px;
 }
+
+#rcorners2 {
+	margin-top: 250px;
+	text-align: center;
+	margin-left: 600px;
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px; 
+  width: 200px;
+  height: 150px;  
+}
