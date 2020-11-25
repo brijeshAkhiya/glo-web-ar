@@ -36,6 +36,7 @@
       </button>
     </model-viewer>
     <script>
+      document.querySelector("model-viewer").pause();
       document.querySelector('button').style.display = "none";
       document.querySelector("model-viewer").addEventListener('ar-status', (event) => {
         if (event.detail.status === 'failed') {
@@ -50,6 +51,9 @@
       document.querySelector('model-viewer').addEventListener('load', () => {
         if (document.querySelector('button')) {
           document.querySelector('button').click();
+          setTimeout(() => {
+            document.querySelector("model-viewer").play();
+          }, 3000)
         }
       });
     </script>
