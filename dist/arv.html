@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="main.css">
     <script type="module" src="./js/model-viewer.min.js"></script>
     <script nomodule src="./js/model-viewer-legacy.js"></script>
     <style>
@@ -27,7 +28,7 @@
     </style>
   </head>
   <body>
-    <model-viewer id="model-viewer" camera-controls ar shadow-intensity="1"
+    <model-viewer id="model-viewer" style="display: none;" camera-controls ar shadow-intensity="1"
     src="./GloBulb/Not Verified_Bulb/Not Verified_Bulb.FBX.gltf"
       ios-src="./GloBulb/Not Verified_Bulb.FBX.usdz" alt="Bulb Verified">
       <button id="ar" slot="ar-button"
@@ -35,6 +36,7 @@
         Activate AR
       </button>
     </model-viewer>
+    <button id="ARButton" style="position: absolute; bottom: 20px; padding: 12px 6px; border: 1px solid rgb(255, 255, 255); border-radius: 4px; background: rgba(0, 0, 0, 0.1); color: rgb(255, 255, 255); font: 13px sans-serif; text-align: center; opacity: 0.5; outline: none; z-index: 999; cursor: pointer; left: calc(50% - 50px); width: 100px;"><a href="intent://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Start AR</a></button>
     <script>
       document.querySelector('button').style.display = "none";
       document.querySelector("model-viewer").addEventListener('ar-status', (event) => {
@@ -47,14 +49,17 @@
           });
         }
       });
-      document.querySelector('model-viewer').addEventListener('load', () => {
-        if (document.querySelector('button')) {
-          document.querySelector('button').click();
+      // document.getElementById('ARButton').addEventListener('click', () => {
+      //   document.getElementById('ar').click();
+      // });
+      // document.querySelector('model-viewer').addEventListener('load', () => {
+      //   if (document.querySelector('button')) {
+          // document.querySelector('button').click();
           // setTimeout(() => {
           //   document.querySelector("model-viewer").play();
           // }, 3000);
-        }
-      });
+      //   }
+      // });
     </script>
   </body>
 
