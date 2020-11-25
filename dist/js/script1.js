@@ -2,7 +2,7 @@ const isAndroid = /android/i.test(navigator.userAgent);
 document.getElementById('model-viewer').style.display = "none";
 document.getElementById('arButton').style.display = "none";
 if (isAndroid) {
-	document.getElementById('arButton').style.display = "block";
+	window.open('../three.html');
 } else {
 	document.getElementById('arButton').style.display = "none";
 	document.getElementById('model-viewer').style.display = "block";
