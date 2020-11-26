@@ -13,8 +13,7 @@ function checkQrCode() {
       if (JSON.parse(this.response).status === 200) {
         alert("Successfully run!!");
       } else if (JSON.parse(this.response).status === 403) {
-        // window.location.replace('../verified.html')
-        document.querySelector('button').click();
+        window.location.replace('../verified.html')
       } else if (JSON.parse(this.response).status === 404) {
         
         

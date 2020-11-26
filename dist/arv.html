@@ -30,9 +30,12 @@
   <body>
     <div id="rcorners2">
 Instructions:
- - Please find a proper ground for the bulb for better results.
- - Please face your phone's camera parallel to the surface.
- - Please don't be in dark area before starting AR.
+<br>
+1) Please find a proper ground for the bulb for better results.
+<br>
+2) Please face your phone's camera parallel to the surface.
+<br>
+3) Please don't be in dark area before starting AR.
           </div>
     <model-viewer id="model-viewer" style="display: none;" camera-controls ar shadow-intensity="1"
     src="./GloBulb/Not Verified_Bulb/Not Verified_Bulb.FBX.gltf"
@@ -42,7 +45,7 @@ Instructions:
         Activate AR
       </button>
     </model-viewer>
-    <button id="ARButton" style="position: absolute; bottom: 20px; padding: 12px 6px; border: 1px solid rgb(255, 255, 255); border-radius: 4px; background: rgba(0, 0, 0, 0.1); color: rgb(255, 255, 255); font: 13px sans-serif; text-align: center; opacity: 0.5; outline: none; z-index: 999; cursor: pointer; left: calc(50% - 50px); width: 100px;">Start AR</button>
+    <button id="ARButton" style="position: absolute; bottom: 20px; padding: 12px 6px; border: 1px solid rgb(255, 255, 255); border-radius: 4px; background: rgba(0, 0, 0, 0.1); color: rgb(255, 255, 255); font: 13px sans-serif; text-align: center; opacity: 0.5; outline: none; z-index: 1; cursor: pointer; left: calc(50% - 50px); width: 100px;">Start AR</button>
     <script>
       document.querySelector('button').style.display = "none";
       document.querySelector("model-viewer").addEventListener('ar-status', (event) => {
