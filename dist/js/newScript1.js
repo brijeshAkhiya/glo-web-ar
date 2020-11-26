@@ -216,7 +216,6 @@ function onSelect() {
       
       setTimeout(() => {
         drops.visible = true;
-      drops.position.y = -3;
       }, 7000);
     }
   }
