@@ -76,9 +76,9 @@
     </div>
 </body>
 
-<script src="Build/UnityLoader.js"></script>
+<script src="Build1/UnityLoader.js"></script>
 <script>
-    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/NonVerifiedBulbWebGL.json", { onProgress: UnityProgress });
+    var gameInstance = UnityLoader.instantiate("gameContainer", "Build1/VerifiedBulbWebGL.json", { onProgress: UnityProgress });
     function UnityProgress(gameInstance, progress) {
         if (!gameInstance.Module) {
             return;
