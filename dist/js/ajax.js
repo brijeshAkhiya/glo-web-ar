@@ -11,12 +11,11 @@ function checkQrCode() {
   xhttp.onreadystatechange = function (event) {
     if (this.status && this.response) {
       if (JSON.parse(this.response).status === 200) {
-        alert("Successfully run!!");
+        window.location.replace('../verifiedWebgl.html');
       } else if (JSON.parse(this.response).status === 403) {
-        window.location.replace('../verified.html')
+        alert(this.response.message);
       } else if (JSON.parse(this.response).status === 404) {
-        
-        
+        window.location.replace('../notVerifiedWebgl.html');
       }
     }
     
