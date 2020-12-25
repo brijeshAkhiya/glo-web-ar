@@ -101,10 +101,12 @@
         }
 
         function ButtonClickEvent() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const myParam = urlParams.get('url');
             if ((/iPad|iPhone|iPod/.test(navigator.platform))) {
-                window.location.replace('https://www.google.com');
+                window.location.replace(myParam);
             } else {
-                window.open('https://www.google.com', '_blank');
+                window.open(myParam, '_blank');
             }
         }
     </script>
