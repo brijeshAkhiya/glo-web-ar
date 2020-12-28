@@ -1,4 +1,4 @@
-const domain = 'http://localhost:3000'
+const domain = 'https://glo-ar-web.herokuapp.com'
       function checkQrCode() {
         const qrCode = window.location.href.split('/')[4];
         const xhttp = new XMLHttpRequest();
