@@ -5,7 +5,8 @@ const domain = 'https://glo-ar-web.herokuapp.com'
         xhttp.onreadystatechange = function (event) {
           if (this.status && this.response) {
             if (JSON.parse(this.response).status === 200) {
-              window.location.replace(domain + '/verified?url=' + JSON.parse(this.response).destination_url);
+              window.location.replace(domain + '/verified');
+              localStorage.setItem('url', JSON.parse(this.response).destination_url);
             } else if (JSON.parse(this.response).status === 403) {
               window.location.replace(domain + '/notverified');
             } else if (JSON.parse(this.response).status === 404) {

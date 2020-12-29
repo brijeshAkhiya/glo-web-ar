@@ -101,8 +101,7 @@
         }
 
         function ButtonClickEvent() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const myParam = urlParams.get('url');
+            const myParam = localStorage.getItem('url');
             if ((/iPad|iPhone|iPod/.test(navigator.platform))) {
                 window.location.replace(myParam);
             } else {
