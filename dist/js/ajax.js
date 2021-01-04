@@ -8,9 +8,9 @@ const domain = 'https://glo-ar-web.herokuapp.com'
               window.location.replace(domain + '/Verified-QR-Code');
               localStorage.setItem('url', JSON.parse(this.response).destination_url);
             } else if (JSON.parse(this.response).status === 403) {
-              window.location.replace(domain + '/In-Valid-QR-Code');
+              window.location.replace(domain + '/Invalid-QR-Code');
             } else if (JSON.parse(this.response).status === 404) {
-              window.location.replace(domain + '/In-Valid-QR-Code');
+              window.location.replace(domain + '/invalid-QR-Code');
             }
           }
         };

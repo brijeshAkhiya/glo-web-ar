@@ -11,7 +11,7 @@ app.get('/Verified-QR-Code', (req, res) => {
   res.sendFile(__dirname + '/verified.html');
 });
 
-app.get('/In-Valid-QR-Code', (req, res) =>{
+app.get('/Invalid-QR-Code', (req, res) =>{
   res.sendFile(__dirname + '/notverified.html');
 });
 
