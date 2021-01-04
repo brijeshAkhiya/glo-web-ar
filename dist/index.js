@@ -7,11 +7,11 @@ app.get('/scanqr/:qrcode', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 });
 
-app.get('/verified', (req, res) => {
+app.get('/Verified-QR-Code', (req, res) => {
   res.sendFile(__dirname + '/verified.html');
 });
 
-app.get('/notverified', (req, res) =>{
+app.get('/In-Valid-QR-Code', (req, res) =>{
   res.sendFile(__dirname + '/notverified.html');
 });
 
