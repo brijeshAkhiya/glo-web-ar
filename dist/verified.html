@@ -102,11 +102,7 @@
 
         function ButtonClickEvent() {
             const myParam = localStorage.getItem('url');
-            if ((/iPad|iPhone|iPod/.test(navigator.platform))) {
-                window.location.replace(myParam);
-            } else {
-                window.open(myParam, '_blank');
-            }
+            window.open(myParam, '_parent');
         }
     </script>
 
