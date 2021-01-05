@@ -14,7 +14,7 @@ const domain = 'https://glo-ar-web.herokuapp.com'
             }
           }
         };
-        xhttp.open("GET", "https://verify.qrcodesafe.com/api/v1/qr?qrcode=" + qrCode, true);
+        xhttp.open("GET", "https://admglo.gloextract.com/api/v1/qr?qrcode=" + qrCode, true);
         xhttp.send();
       }
 
