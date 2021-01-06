@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Verified</title>
+    <title>ZappARWebGL</title>
     <style>
         html {
             box-sizing: border-box;
@@ -76,9 +76,9 @@
     </div>
 </body>
 
-<script src="Build1/UnityLoader.js"></script>
+<script src="Build/UnityLoader.js"></script>
 <script>
-    var gameInstance = UnityLoader.instantiate("gameContainer", "Build1/Verified_7.json", { onProgress: UnityProgress });
+    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/Verified_8.json", { onProgress: UnityProgress });
     function UnityProgress(gameInstance, progress) {
         if (!gameInstance.Module) {
             return;
