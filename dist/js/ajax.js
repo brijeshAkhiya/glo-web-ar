@@ -1,4 +1,4 @@
-const domain = 'https://glo-ar-web.herokuapp.com'
+const domain = 'https://verify.gloextract.com'
       function checkQrCode() {
         const qrCode = window.location.href.split('/')[4];
         const xhttp = new XMLHttpRequest();
