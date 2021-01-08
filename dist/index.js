@@ -22,3 +22,6 @@ app.listen(process.env.PORT || 3000, (err, result) => {
     console.log('connected');
   }
 });
+
+// const myParam = localStorage.getItem('url');
+//             window.open(myParam, '_parent');
