@@ -31,7 +31,7 @@
         ios-src="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b/Astronaut.usdz?v=1569545377878"
         poster="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b%2Fposter-astronaut.png?v=1599079951717"
         alt="A 3D model of an astronaut" shadow-intensity="1" camera-controls auto-rotate ar>
-        <button slot="ar-button"
+        <button type="button" slot="ar-button"
           style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
           👋 Activate AR
         </button>
@@ -48,17 +48,19 @@
     <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
     </script>
     <script>
-      document.querySelector('button').addEventListener('click', () => {
-        setTimeout(() => {
-          const myParam = localStorage.getItem('url');
-            window.open(myParam, '_parent');
-        }, 30000);
-      });
+      // document.querySelector('button').addEventListener('click', () => {
+      //   setTimeout(() => {
+      //     const myParam = localStorage.getItem('url');
+      //       window.open(myParam, '_parent');
+      //   }, 30000);
+      // });
       if (document.querySelector('model-viewer')) {
         alert('model loaded');
         if (document.querySelector('button')) {
           alert('Button Found');
-          document.querySelector('button').click();
+          setTimeout(() => {
+            document.querySelector('button').click();
+          }, 2000);
         }
       }
     </script>
