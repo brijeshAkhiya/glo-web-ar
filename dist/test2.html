@@ -48,8 +48,10 @@
     <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
     </script>
     <script>
-      if (document.querySelector('button')) {
-        alert('Button Found')
+      if (document.querySelector('model-viewer')) {
+        if (document.querySelector('button')) {
+          alert('Button Found')
+        }
       }
     </script>
   </body>
