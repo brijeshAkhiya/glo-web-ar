@@ -13,20 +13,20 @@
       alt="A 3D model of a shishkebab">
       <button slot="ar-button"
         style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
-        
+        AR mode
       </button>
     </model-viewer>
   </body>
   <script>
-    if (document.querySelector('button')) {
-      document.querySelector('button').click();
-    }
-    document.querySelector('button').addEventListener('click', () => {
-      setTimeout(() => {
-        const myParam = localStorage.getItem('url');
-        window.open(myParam, '_parent');
-      }, 30000);
-    });
+    // if (document.querySelector('button')) {
+    //   document.querySelector('button').click();
+    // }
+    // document.querySelector('button').addEventListener('click', () => {
+    //   setTimeout(() => {
+    //     const myParam = localStorage.getItem('url');
+    //     window.open(myParam, '_parent');
+    //   }, 30000);
+    // });
   </script>
 
 </html>
