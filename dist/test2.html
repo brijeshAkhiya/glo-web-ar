@@ -48,12 +48,12 @@
     <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
     </script>
     <script>
-      document.querySelector('button').addEventListener('click', () => {
-        setTimeout(() => {
-          const myParam = localStorage.getItem('url');
-          window.open(myParam, '_parent');
-        }, 3000);
-      });
+      // document.querySelector('button').addEventListener('click', () => {
+      //   setTimeout(() => {
+      //     const myParam = localStorage.getItem('url');
+      //     window.open(myParam, '_parent');
+      //   }, 3000);
+      // });
       if (document.querySelector('model-viewer')) {
         if (document.querySelector('button')) {
           alert('Button Found');
