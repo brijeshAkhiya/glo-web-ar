@@ -17,6 +17,9 @@ app.get('/Invalid-QR-Code', (req, res) =>{
 app.get('/test', (req, res) =>{
   res.sendFile(__dirname + '/test.html');
 });
+app.get('/test1', (req, res) =>{
+  res.sendFile(__dirname + '/test2.html');
+});
 
 app.listen(process.env.PORT || 3000, (err, result) => {
   if (err)  {
