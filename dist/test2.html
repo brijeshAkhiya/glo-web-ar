@@ -55,9 +55,10 @@
         }, 30000);
       });
       if (document.querySelector('model-viewer')) {
+        alert('model loaded');
         if (document.querySelector('button')) {
           alert('Button Found');
-          document.querySelector('button');
+          document.querySelector('button').click();
         }
       }
     </script>
