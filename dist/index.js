@@ -20,6 +20,9 @@ app.get('/test', (req, res) =>{
 app.get('/verified', (req, res) =>{
   res.sendFile(__dirname + '/test2.html');
 });
+app.get('/not-verified', (req, res) =>{
+  res.sendFile(__dirname + '/test1.html');
+});
 
 app.listen(process.env.PORT || 3000, (err, result) => {
   if (err)  {
