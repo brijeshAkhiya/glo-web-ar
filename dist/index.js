@@ -17,10 +17,10 @@ app.get('/Invalid-QR-Code', (req, res) =>{
 app.get('/test', (req, res) =>{
   res.sendFile(__dirname + '/test.html');
 });
-app.get('/not-verified', (req, res) =>{
+app.get('/not-verified-ar', (req, res) =>{
   res.sendFile(__dirname + '/test2.html');
 });
-app.get('/verified', (req, res) =>{
+app.get('/verified-ar', (req, res) =>{
   res.sendFile(__dirname + '/test1.html');
 });
 
