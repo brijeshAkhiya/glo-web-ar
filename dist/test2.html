@@ -51,20 +51,33 @@
     <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
     </script>
     <script>
-      document.querySelector('button').addEventListener('click', () => {
-        setTimeout(() => {
-          const myParam = localStorage.getItem('url');
-            window.open(myParam, '_parent');
-        }, 7000);
-      });
-      if (document.querySelector('model-viewer')) {
-        if (document.querySelector('button')) {
-          setTimeout(() => {
-            document.querySelector('button').click();
-          }, 2000);
-        }
+      function getPlatform() {
+          var platform = ["Android", "iOS"];
+
+          if (navigator.userAgent.toLowerCase().indexOf('android') > -1) {
+              return platform[0];
+          } else {
+              return platform[1];
+          }
       }
-    </script>
+      let counter = 0;
+      document.querySelector('model-viewer').addEventListener('load', () => {
+          document.querySelector('button').addEventListener('load', () => {
+              counter = 1;
+          });
+          if (counter) {
+              document.querySelector('button').click();
+          } else {
+              console.log(getPlatform());
+              if (getPlatform() === 'Android') {
+                  window.location.href =
+                      'https://play.google.com/store/apps/details?id=com.google.ar.core&hl=en';
+              } else {
+                  alert('Ar not suuported');
+              }
+          }
+      });
+  </script>
   </body>
 
 </html>
