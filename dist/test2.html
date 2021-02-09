@@ -51,33 +51,14 @@
     <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
     </script>
     <script>
-      function getPlatform() {
-          var platform = ["Android", "iOS"];
-
-          if (navigator.userAgent.toLowerCase().indexOf('android') > -1) {
-              return platform[0];
-          } else {
-              return platform[1];
-          }
+      if (document.querySelector('model-viewer')) {
+        if (document.querySelector('button')) {
+          setTimeout(() => {
+            document.querySelector('button').click();
+          }, 2000);
+        }
       }
-      let counter = 0;
-      document.querySelector('model-viewer').addEventListener('load', () => {
-          document.querySelector('button').addEventListener('load', () => {
-              counter = 1;
-          });
-          if (counter) {
-              document.querySelector('button').click();
-          } else {
-              console.log(getPlatform());
-              if (getPlatform() === 'Android') {
-                  window.location.href =
-                      'https://play.google.com/store/apps/details?id=com.google.ar.core&hl=en';
-              } else {
-                  alert('Ar not suuported');
-              }
-          }
-      });
-  </script>
+    </script>
   </body>
 
 </html>
