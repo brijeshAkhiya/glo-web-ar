@@ -49,7 +49,7 @@
             </model-viewer>
             <button id="y">Activate Ar</button>
             <script>
-                if (navigator.userAgent.toLowerCase().indexOf('android')) {
+                if (/android/i.test(navigator.userAgent)) {
                     document.getElementById('x').style.display = "none";
                     document.getElementById('y').addEventListener('click', () => {
                         document.querySelector('model-viewer').style.display = "block";
@@ -68,6 +68,7 @@
                         }
                     });
                 } else {
+                    document.getElementById('y').style.display = 'none';
                     document.querySelector('model-viewer').addEventListener('load', () => {
                         document.getElementById('ar').click();
                     })
