@@ -37,39 +37,49 @@
         }
     </style>
 
-    <body>
+    <body onload="">
         <div id="card">
             <!-- All you need to put beautiful, interactive 3D content on your site: -->
             <model-viewer id="x" ar autoplay camera-controls ios-src="./Not Verified_Bulb_Option.usdz"
                 src="./Not Verified_Bulb_Option.glb" alt="Result is Verified">
                 <button slot="ar-button" style="display: none;" id="ar"
                     style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
-                    👋 Activate AR
+                    Activate AR
                 </button>
             </model-viewer>
-            <button id="y">Activate Ar</button>
+            <button id="y" style="display: none;">Activate Ar</button>
             <script>
                 if (/android/i.test(navigator.userAgent)) {
-                    document.getElementById('x').style.display = "none";
-                    document.getElementById('y').addEventListener('click', () => {
-                        document.querySelector('model-viewer').style.display = "block";
+                    document.querySelector('model-viewer').addEventListener('load', (event) => {
+                        setTimeout(() => {
+                            document.getElementById('y').style.display = "block";
+                        }, 800);
                     });
-                    document.querySelector('model-viewer').addEventListener('load', () => {
+                    document.getElementById('y').onclick = () => {
                         document.getElementById('ar').click();
-                    });
+
+                    };
                     document.querySelector("#x").addEventListener('ar-status', (event) => {
+                        console.log(event)
                         if (event.detail.status === 'failed') {
-                            alert('failed');
-                            const error = document.querySelector("#error");
-                            error.classList.remove('hide');
-                            error.addEventListener('transitionend', (event) => {
-                                error.classList.add('hide');
-                            });
+                            console.log(event);
+                            document.getElementById('x').style.visibility = "visible";
+                            document.getElementById('ar').click();
+                            document.getElementById('y').style.display = "none";
+                            setTimeout(() => {
+                                console.log("can't work")
+                            }, 3000);
+                            // document.getElementById('ar').click();
+                            // const error = document.querySelector("#error");
+                            // error.classList.remove('hide');
+                            // error.addEventListener('transitionend', (event) => {
+                            //     error.classList.add('hide');
+                            // });
                         }
                     });
                 } else {
                     document.getElementById('y').style.display = 'none';
-                    document.querySelector('model-viewer').addEventListener('load', () => {
+                    document.querySelector('model-viewer').addEventListener('load', (event) => {
                         document.getElementById('ar').click();
                     })
                 }
