@@ -52,9 +52,9 @@
                 if (/android/i.test(navigator.userAgent)) {
                     document.querySelector('model-viewer').addEventListener('load', (event) => {
                         const size = document.querySelector('model-viewer').getDimensions();
-                        size.x = size.x / 2000;
-                        size.y = size.y / 2000;
-                        size.z = size.z / 2000;
+                        size.x = size.x / 200000;
+                        size.y = size.y / 200000;
+                        size.z = size.z / 200000;
                         console.log(size)
                         setTimeout(() => {
                             document.getElementById('y').style.display = "block";
@@ -85,9 +85,9 @@
                     document.getElementById('y').style.display = 'none';
                     document.querySelector('model-viewer').addEventListener('load', (event) => {
                         const size = document.querySelector('model-viewer').getDimensions();
-                        size.x = size.x / 2000;
-                        size.y = size.y / 2000;
-                        size.z = size.z / 2000;
+                        size.x = size.x / 200000;
+                        size.y = size.y / 200000;
+                        size.z = size.z / 200000;
                         document.getElementById('ar').click();
                     })
                 }
