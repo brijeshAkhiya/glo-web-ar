@@ -51,6 +51,10 @@
             <script>
                 if (/android/i.test(navigator.userAgent)) {
                     document.querySelector('model-viewer').addEventListener('load', (event) => {
+                        const size = document.querySelector('model-viewer').getDimensions();
+                        size.x = size.x / 2;
+                        size.y = size.y / 2;
+                        size.z = size.z / 2;
                         setTimeout(() => {
                             document.getElementById('y').style.display = "block";
                         }, 800);
@@ -60,14 +64,13 @@
 
                     };
                     document.querySelector("#x").addEventListener('ar-status', (event) => {
-                        console.log(event)
                         if (event.detail.status === 'failed') {
                             console.log(event);
                             document.getElementById('x').style.visibility = "visible";
                             document.getElementById('ar').click();
                             document.getElementById('y').style.display = "none";
                             setTimeout(() => {
-                                console.log("can't work")
+                                alert('AR not supported');
                             }, 3000);
                             // document.getElementById('ar').click();
                             // const error = document.querySelector("#error");
@@ -80,6 +83,10 @@
                 } else {
                     document.getElementById('y').style.display = 'none';
                     document.querySelector('model-viewer').addEventListener('load', (event) => {
+                        const size = document.querySelector('model-viewer').getDimensions();
+                        size.x = size.x / 2;
+                        size.y = size.y / 2;
+                        size.z = size.z / 2;
                         document.getElementById('ar').click();
                     })
                 }
