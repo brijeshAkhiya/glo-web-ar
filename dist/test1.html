@@ -85,9 +85,9 @@
                     document.getElementById('y').style.display = 'none';
                     document.querySelector('model-viewer').addEventListener('load', (event) => {
                         const size = document.querySelector('model-viewer').getDimensions();
-                        size.x = size.x / 2;
-                        size.y = size.y / 2;
-                        size.z = size.z / 2;
+                        size.x = size.x / 2000;
+                        size.y = size.y / 2000;
+                        size.z = size.z / 2000;
                         document.getElementById('ar').click();
                     })
                 }
