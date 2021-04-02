@@ -8,7 +8,7 @@ app.get('/scanqr/:qrcode', (req, res) => {
 });
 
 app.get('/Verified-QR-Code', (req, res) => {
-    res.sendFile(__dirname + '/test1.html');
+    res.sendFile(__dirname + '/verified.html');
 });
 
 // app.get('/Invalid-QR-Code', (req, res) => {
