@@ -9,10 +9,10 @@ const domain = 'https://verify.gloextract.com'
               localStorage.setItem('url', JSON.parse(this.response).destination_url);
             } else if (JSON.parse(this.response).status === 403) {
               // window.location.replace(domain + '/Invalid-QR-Code');
-              window.open('localhost:3000/verified-ar', '_blank');
+              window.open('https://www.gloextract.com/not-verified', '_blank');
             } else if (JSON.parse(this.response).status === 404) {
               // window.location.replace(domain + '/invalid-QR-Code');
-              window.open('http://localhost:3000/verified-ar', '_blank');
+              window.open('https://www.gloextract.com/not-verified/', '_blank');
               // window.location.replace('http://localhost:3000/verified-ar');
             }
           }
