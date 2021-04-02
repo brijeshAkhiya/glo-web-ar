@@ -6,6 +6,9 @@
   "directories": {
     "lib": "lib"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/index",
